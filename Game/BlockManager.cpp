@@ -14,6 +14,7 @@ BlockManager::BlockManager() {
 		case 2:  color = COLOR_BLUE;  break;
 		default: color = COLOR_WHITE; break;
 		}
+
 		blocks.emplace_back(std::make_unique<NormalBlock>(Vector2{ 40.0f + (i%8) * 80,40.0f + (i/8) * 20 }, 80, 20, 1, color));
 	}
 }

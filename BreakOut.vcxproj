@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Game\AbstractScene.cpp" />
     <ClCompile Include="Game\BallManager.cpp" />
+    <ClCompile Include="Game\BlockFactory.cpp" />
     <ClCompile Include="Game\BlockManager.cpp" />
     <ClCompile Include="Game\Keyboard.cpp" />
     <ClCompile Include="Game\NormalBall.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="Game\AbstractBlock.h" />
     <ClInclude Include="Game\AbstractScene.h" />
     <ClInclude Include="Game\BallManager.h" />
+    <ClInclude Include="Game\BlockFactory.h" />
     <ClInclude Include="Game\BlockManager.h" />
     <ClInclude Include="Game\Field.h" />
     <ClInclude Include="Game\Keyboard.h" />
@@ -126,6 +128,7 @@
     <ClInclude Include="Game\RequestSceneListener.h" />
     <ClInclude Include="Game\SceneID.h" />
     <ClInclude Include="Game\Singleton.h" />
+    <ClInclude Include="Game\StageData.h" />
     <ClInclude Include="Game\Vector2.h" />
     <ClInclude Include="Libraries\GameLibrary\GameLibAudio.h" />
     <ClInclude Include="Libraries\GameLibrary\GameLibCollision.h" />

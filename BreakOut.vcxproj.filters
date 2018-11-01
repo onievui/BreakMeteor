@@ -115,6 +115,9 @@
     <ClCompile Include="Game\BallManager.cpp">
       <Filter>ゲーム\オブジェクト\ボール</Filter>
     </ClCompile>
+    <ClCompile Include="Game\BlockFactory.cpp">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
   <ItemGroup>
@@ -198,6 +201,12 @@
     </ClInclude>
     <ClInclude Include="Game\BallManager.h">
       <Filter>ゲーム\オブジェクト\ボール</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\BlockFactory.h">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\StageData.h">
+      <Filter>ゲーム\オブジェクト</Filter>
     </ClInclude>
   </ItemGroup>
   <!-- リソースファイル -->

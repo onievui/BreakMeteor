@@ -7,8 +7,6 @@
 class BlockManager {
 
 private:
-	const static int BLOCK_MAX = 24;
-
 	std::vector<std::unique_ptr<AbstractBlock>> blocks;
 
 public:

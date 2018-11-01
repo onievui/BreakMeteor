@@ -1,21 +1,29 @@
 #pragma once
 
 #include "BlockManager.h"
-#include "NormalBlock.h"
+#include "BlockFactory.h"
 
 
+using namespace StageData;
 
 BlockManager::BlockManager() {
-	unsigned int color;
-	for (int i = 0; i < 24; ++i) {
-		switch (i/8) {
-		case 0:  color = COLOR_RED;   break;
-		case 1:  color = COLOR_GREEN; break;
-		case 2:  color = COLOR_BLUE;  break;
-		default: color = COLOR_WHITE; break;
+	Vector2 pos;
+	int row = sizeof(STAGE_DATA1) / sizeof(STAGE_DATA1[0]);
+	int column = sizeof(STAGE_DATA1[0]) / sizeof(STAGE_DATA1[0][0]);
+	for (int i = 0; i < row*column; ++i) {
+		BLOCK_TYPE type = (BLOCK_TYPE)STAGE_DATA1[i / column][i % column];
+		pos.x = 40.0f + (i % column) * 80;
+		pos.y = 40.0f + (i / column) * 20;
+		//ãÛîíÇ»ÇÁîÚÇŒÇ∑
+		if (type == BLOCK_TYPE::NONE) {
+			continue;
 		}
-
-		blocks.emplace_back(std::make_unique<NormalBlock>(Vector2{ 40.0f + (i%8) * 80,40.0f + (i/8) * 20 }, 80, 20, 1, color));
+		auto block = BlockFactroy::createBlock(pos, type);
+		//ê∂ê¨Ç…é∏îsÇµÇΩÇÁîÚÇŒÇ∑
+		if (block == nullptr) {
+			continue;
+		}
+		blocks.push_back(std::move(block));
 	}
 }
 

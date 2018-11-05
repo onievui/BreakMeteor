@@ -92,6 +92,7 @@
     <ClCompile Include="Game\BallManager.cpp" />
     <ClCompile Include="Game\BlockFactory.cpp" />
     <ClCompile Include="Game\BlockManager.cpp" />
+    <ClCompile Include="Game\Color.cpp" />
     <ClCompile Include="Game\Keyboard.cpp" />
     <ClCompile Include="Game\NormalBall.cpp" />
     <ClCompile Include="Game\NormalBlock.cpp" />
@@ -118,6 +119,8 @@
     <ClInclude Include="Game\BallManager.h" />
     <ClInclude Include="Game\BlockFactory.h" />
     <ClInclude Include="Game\BlockManager.h" />
+    <ClInclude Include="Game\Clamp.h" />
+    <ClInclude Include="Game\Color.h" />
     <ClInclude Include="Game\Field.h" />
     <ClInclude Include="Game\Keyboard.h" />
     <ClInclude Include="Game\NormalBall.h" />

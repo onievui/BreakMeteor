@@ -1,10 +1,17 @@
 #pragma once
 
 #include "AbstractBlock.h"
-#include "StageData.h"
 #include <memory>
 
 
+
+enum BLOCK_TYPE {
+	NONE,
+	NORMAL_RED,
+	NORMAL_GREEN,
+	NORMAL_BLUE,
+	TYPE_NUM,
+};
 
 
 

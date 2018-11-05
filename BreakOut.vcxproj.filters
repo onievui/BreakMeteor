@@ -54,6 +54,9 @@
     <Filter Include="ゲーム\オブジェクト\ボール">
       <UniqueIdentifier>{cf46910d-3680-4a13-b420-2c257a6c398c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲーム\ユーティリティ\色関係">
+      <UniqueIdentifier>{c6a44d45-5472-43e3-bd66-9e13368ef081}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <!-- ソースファイル -->
   <ItemGroup>
@@ -117,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="Game\BlockFactory.cpp">
       <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Color.cpp">
+      <Filter>ゲーム\ユーティリティ\色関係</Filter>
     </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
@@ -207,6 +213,12 @@
     </ClInclude>
     <ClInclude Include="Game\StageData.h">
       <Filter>ゲーム\オブジェクト</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Color.h">
+      <Filter>ゲーム\ユーティリティ\色関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Clamp.h">
+      <Filter>ゲーム\ユーティリティ</Filter>
     </ClInclude>
   </ItemGroup>
   <!-- リソースファイル -->

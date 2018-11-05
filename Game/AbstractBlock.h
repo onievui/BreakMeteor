@@ -1,15 +1,17 @@
 #pragma once
 
 #include "Vector2.h"
+#include "Color.h"
+#include <memory>
 
 class AbstractBlock {
 
 protected:
-	Vector2 pos;        //中心座標
-	float width;        //横幅
-	float height;       //縦幅
-	int hp;				//耐久力
-	unsigned int color; //色
+	Vector2 pos;                    //中心座標
+	float width;                    //横幅
+	float height;                   //縦幅
+	int hp;			                //耐久力
+	std::unique_ptr<Color> color;	//色
 
 public:
 	AbstractBlock() = default;

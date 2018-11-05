@@ -13,16 +13,23 @@ std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, co
 	}
 
 	std::unique_ptr<AbstractBlock> block;
+	std::unique_ptr<Color> color;
 
 	switch (_type) {
 	case NORMAL_RED:
-		block = std::make_unique<NormalBlock>(_pos, 80, 20, 1, COLOR_RED);
+		color = std::make_unique<RGBColor>(0, 0, 0);
+		color->setColor(ColorCode::COLOR_RED);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
 		break;
 	case NORMAL_GREEN:
-		block = std::make_unique<NormalBlock>(_pos, 80, 20, 1, COLOR_GREEN);
+		color = std::make_unique<RGBColor>(0, 0, 0);
+		color->setColor(ColorCode::COLOR_GREEN);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
 		break;
 	case NORMAL_BLUE:
-		block = std::make_unique<NormalBlock>(_pos, 80, 20, 1, COLOR_BLUE);
+		color = std::make_unique<RGBColor>(0, 0, 0);
+		color->setColor(ColorCode::COLOR_BLUE);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
 		break;
 	default:
 		MessageBox(NULL, "ブロックの生成で不正な値が渡されました", "", MB_OK);

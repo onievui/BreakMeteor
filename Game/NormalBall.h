@@ -4,6 +4,9 @@
 
 
 class NormalBall : public AbstractBall {
+	
+private:
+	void collisionWall();
 
 public:
 	NormalBall();

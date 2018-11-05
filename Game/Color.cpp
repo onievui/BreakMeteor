@@ -6,6 +6,10 @@ RGBColor::RGBColor(const int _r, const int _g, const int _b) {
 	setRGBColor(_r, _g, _b);
 }
 
+RGBColor::RGBColor(const unsigned int _color_code) {
+	setColor(_color_code);
+}
+
 void RGBColor::setRGBColor(const int _r, const int _g, const int _b) {
 	r = ClampT(_r, 0, 255);
 	g = ClampT(_g, 0, 255);
@@ -125,9 +129,9 @@ void RGBColor::setV(const int _v) {
 
 void RGBColor::setColor(unsigned int _color_code) {
 	int r, g, b;
-	r = (_color_code & 0x00FF0000) >> 4;
-	g = (_color_code & 0x0000FF00) >> 2;
-	b = (_color_code & 0x000000FF);
+	r = (_color_code >> 16) & 0xFF;
+	g = (_color_code >>  8) & 0xFF;
+	b = (_color_code >>  0) & 0xFF;
 	setRGBColor(r, g, b);
 }
 
@@ -164,6 +168,10 @@ void RGBColor::shiftV(const int _value) {
 
 HSVColor::HSVColor(const int _h, const int _s, const int _v) {
 	setHSVColor(_h, _s, _v);
+}
+
+HSVColor::HSVColor(const unsigned int _color_code) {
+	setColor(_color_code);
 }
 
 void HSVColor::setRGBColor(const int _r, const int _g, const int _b) {

@@ -15,7 +15,8 @@ void Paddle::initialize() {
 	width  = 80;
 	height = 16;
 	speed  = 5;
-	color  = COLOR_WHITE;
+	color = std::make_unique<RGBColor>(0, 0, 0);
+	color->setColor(ColorCode::COLOR_WHITE);
 }
 
 void Paddle::update() {
@@ -23,7 +24,7 @@ void Paddle::update() {
 }
 
 void Paddle::draw() const {
-	DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, color, true);
+	DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, color->getColor(), true);
 }
 
 void Paddle::move() {

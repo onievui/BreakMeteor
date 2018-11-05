@@ -50,6 +50,7 @@ private:
 
 public:
 	RGBColor(const int _r, const int _g, const int _b);
+	RGBColor(const unsigned int _color_code);
 	~RGBColor() = default;
 
 	void setRGBColor(const int _r, const int _g, const int _b);
@@ -92,6 +93,7 @@ private:
 
 public:
 	HSVColor(const int _h, const int _s, const int _v);
+	HSVColor(const unsigned int _color_code);
 	~HSVColor() = default;
 
 	void setRGBColor(const int _r, const int _g, const int _b);

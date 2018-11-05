@@ -3,7 +3,7 @@
 
 
 
-static const float PI = DX_PI_F;
+static constexpr float PI = DX_PI_F;
 
 NormalBall::NormalBall() {
 	pos = { 320,300 };

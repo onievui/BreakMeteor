@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector2.h"
+#include "Collider.h"
 #include "Color.h"
 #include <memory>
 
@@ -12,10 +13,17 @@ protected:
 	float radius;	                //îºåa
 	float angle;	                //äpìx
 	float speed;	                //ë¨ìx
+	std::unique_ptr<RectCollider> collider;
 	std::unique_ptr<Color> color;	//êF
 
 public:
 	AbstractBall() = default;
+	AbstractBall(const Vector2 &_pos,const Vector2 &_vel, const float _radius, const float _angle, const float _speed)
+		: pos(_pos)
+		, vel(_vel)
+		, radius(_radius)
+		, angle(_angle)
+		, speed(_speed){}
 	virtual ~AbstractBall() = default;
 
 	virtual void update() = 0;

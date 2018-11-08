@@ -1,5 +1,5 @@
 #include "Color.h"
-#include "Clamp.h"
+#include "MyMath.h"
 
 
 RGBColor::RGBColor(const int _r, const int _g, const int _b) {

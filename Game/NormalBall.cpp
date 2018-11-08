@@ -1,3 +1,4 @@
+#pragma once
 #include "NormalBall.h"
 #include "Field.h"
 
@@ -5,14 +6,18 @@
 
 static constexpr float PI = DX_PI_F;
 
-NormalBall::NormalBall() {
-	pos = { 320,300 };
-	vel = { 0,0 };
-	radius = 5;
-	angle = PI / 4;
-	speed = 4;
-	color = std::make_unique<RGBColor>(0, 0, 0);
-	color->setColor(ColorCode::COLOR_YELLOW);
+NormalBall::NormalBall()
+	: AbstractBall::AbstractBall(
+		Vector2(320,300),
+		Vector2(0,0),
+		5.f,
+		PI / 4,
+		4.f
+	) {
+	//速度優先の為、イニシャライザ未使用
+	collider = std::make_unique<RectCollider>();
+	color = std::make_unique<RGBColor>(ColorCode::COLOR_YELLOW);
+	
 }
 
 NormalBall::~NormalBall() {

@@ -5,7 +5,9 @@
 
 
 BallManager::BallManager() {
+	//for(int i=0;i<1000000;i++)
 	balls.emplace_back(std::make_unique<NormalBall>());
+	//int a = 10;
 }
 
 BallManager::~BallManager() {
@@ -15,6 +17,7 @@ BallManager::~BallManager() {
 void BallManager::update() {
 	for (auto &ball : balls) {
 		ball->update();
+		
 	}
 }
 

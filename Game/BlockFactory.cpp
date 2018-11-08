@@ -17,18 +17,15 @@ std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, co
 
 	switch (_type) {
 	case NORMAL_RED:
-		color = std::make_unique<RGBColor>(0, 0, 0);
-		color->setColor(ColorCode::COLOR_RED);
+		color = std::make_unique<RGBColor>(ColorCode::COLOR_RED);
 		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
 		break;
 	case NORMAL_GREEN:
-		color = std::make_unique<RGBColor>(0, 0, 0);
-		color->setColor(ColorCode::COLOR_GREEN);
+		color = std::make_unique<RGBColor>(ColorCode::COLOR_GREEN);
 		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
 		break;
 	case NORMAL_BLUE:
-		color = std::make_unique<RGBColor>(0, 0, 0);
-		color->setColor(ColorCode::COLOR_BLUE);
+		color = std::make_unique<RGBColor>(ColorCode::COLOR_BLUE);
 		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
 		break;
 	default:

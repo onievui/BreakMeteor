@@ -57,6 +57,9 @@
     <Filter Include="ゲーム\ユーティリティ\色関係">
       <UniqueIdentifier>{c6a44d45-5472-43e3-bd66-9e13368ef081}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲーム\ユーティリティ\物理関係">
+      <UniqueIdentifier>{f4277eae-420a-4e74-856c-b671db5c5ceb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <!-- ソースファイル -->
   <ItemGroup>
@@ -87,9 +90,6 @@
     </ClCompile>
     <ClCompile Include="Game\Paddle.cpp">
       <Filter>ゲーム\オブジェクト</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Vector2.cpp">
-      <Filter>ゲーム\ユーティリティ</Filter>
     </ClCompile>
     <ClCompile Include="Game\Keyboard.cpp">
       <Filter>ゲーム\ユーティリティ\入力関係</Filter>
@@ -123,6 +123,15 @@
     </ClCompile>
     <ClCompile Include="Game\Color.cpp">
       <Filter>ゲーム\ユーティリティ\色関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Vector2.cpp">
+      <Filter>ゲーム\ユーティリティ\物理関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider.cpp">
+      <Filter>ゲーム\ユーティリティ\物理関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MyMath.cpp">
+      <Filter>ゲーム</Filter>
     </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
@@ -159,9 +168,6 @@
     </ClInclude>
     <ClInclude Include="Game\Paddle.h">
       <Filter>ゲーム\オブジェクト</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Vector2.h">
-      <Filter>ゲーム\ユーティリティ</Filter>
     </ClInclude>
     <ClInclude Include="Game\Singleton.h">
       <Filter>ゲーム\ユーティリティ</Filter>
@@ -217,7 +223,13 @@
     <ClInclude Include="Game\Color.h">
       <Filter>ゲーム\ユーティリティ\色関係</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Clamp.h">
+    <ClInclude Include="Game\Vector2.h">
+      <Filter>ゲーム\ユーティリティ\物理関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider.h">
+      <Filter>ゲーム\ユーティリティ\物理関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MyMath.h">
       <Filter>ゲーム\ユーティリティ</Filter>
     </ClInclude>
   </ItemGroup>

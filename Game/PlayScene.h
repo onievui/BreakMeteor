@@ -4,6 +4,7 @@
 #include "Paddle.h"
 #include "BallManager.h"
 #include "BlockManager.h"
+#include "Collision.h"
 #include <memory>
 
 
@@ -14,6 +15,7 @@ private:
 	std::unique_ptr<Paddle> paddle;
 	std::unique_ptr<BallManager> ballManager;
 	std::unique_ptr<BlockManager> blockManager;
+	std::unique_ptr<Collision> collision;
 
 public:
 	//シーン切り替えインタフェースの登録

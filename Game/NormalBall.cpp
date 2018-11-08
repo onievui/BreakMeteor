@@ -15,7 +15,7 @@ NormalBall::NormalBall()
 		4.f
 	) {
 	//速度優先の為、イニシャライザ未使用
-	collider = std::make_unique<RectCollider>();
+	collider = std::make_unique<RectCollider>(&pos, Vector2(0, 0), &vel, radius - 1.f, radius - 1.f);
 	color = std::make_unique<RGBColor>(ColorCode::COLOR_YELLOW);
 	
 }

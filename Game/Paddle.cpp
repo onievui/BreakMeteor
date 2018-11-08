@@ -15,8 +15,8 @@ void Paddle::initialize() {
 	width  = 80;
 	height = 16;
 	speed  = 5;
-	color = std::make_unique<RGBColor>(0, 0, 0);
-	color->setColor(ColorCode::COLOR_WHITE);
+	collider = std::make_unique<RectCollider>(&pos, Vector2(0, 0), &vel, width, height);
+	color = std::make_unique<RGBColor>(ColorCode::COLOR_WHITE);
 }
 
 void Paddle::update() {
@@ -25,6 +25,10 @@ void Paddle::update() {
 
 void Paddle::draw() const {
 	DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, color->getColor(), true);
+}
+
+RectCollider* Paddle::getCollider() const {
+	return collider.get();
 }
 
 void Paddle::move() {

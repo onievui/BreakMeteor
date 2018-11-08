@@ -19,10 +19,19 @@ void BallManager::update() {
 		ball->update();
 		
 	}
+	
 }
 
 void BallManager::render() const {
 	for (auto &ball : balls) {
 		ball->draw();
 	}
+}
+
+auto BallManager::getBallsBigin() const {
+	return balls.begin();
+}
+
+auto BallManager::getBallsEnd() const {
+	return balls.end();
 }

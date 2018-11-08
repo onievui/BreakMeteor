@@ -14,6 +14,8 @@ public:
 	~BallManager();
 
 	void update();
-
 	void render() const;
+
+	auto getBallsBigin() const;
+	auto getBallsEnd() const;
 };

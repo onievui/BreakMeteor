@@ -23,6 +23,7 @@ void PlayScene::initialize() {
 	paddle = std::make_unique<Paddle>();
 	ballManager = std::make_unique<BallManager>();
 	blockManager = std::make_unique<BlockManager>();
+	collision = std::make_unique<Collision>(paddle, ballManager, blockManager);
 }
 
 /// <summary>
@@ -32,6 +33,7 @@ void PlayScene::update() {
 	paddle->update();
 	ballManager->update();
 	blockManager->update();
+	collision->update();
 }
 
 

@@ -4,7 +4,12 @@
 #include "NormalBall.h"
 
 
-BallManager::BallManager() {
+
+BallManager::BallManager(std::unique_ptr<Collision>& _collision) {
+
+	//当たり判定用に配列のポインタを渡す
+	_collision->setBalls(&balls);
+
 	//for(int i=0;i<1000000;i++)
 	balls.emplace_back(std::make_unique<NormalBall>());
 	//int a = 10;
@@ -28,10 +33,3 @@ void BallManager::render() const {
 	}
 }
 
-auto BallManager::getBallsBigin() const {
-	return balls.begin();
-}
-
-auto BallManager::getBallsEnd() const {
-	return balls.end();
-}

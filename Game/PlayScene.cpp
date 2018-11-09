@@ -20,10 +20,11 @@ PlayScene::~PlayScene() {
 /// ƒV[ƒ“‚Ì‰Šú‰»
 /// </summary>
 void PlayScene::initialize() {
+	collision = std::make_unique<Collision>();
 	paddle = std::make_unique<Paddle>();
-	ballManager = std::make_unique<BallManager>();
-	blockManager = std::make_unique<BlockManager>();
-	collision = std::make_unique<Collision>(paddle, ballManager, blockManager);
+	collision->setPaddle(&paddle);
+	ballManager = std::make_unique<BallManager>(collision);
+	blockManager = std::make_unique<BlockManager>(collision);
 }
 
 /// <summary>

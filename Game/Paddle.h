@@ -6,7 +6,6 @@
 #include <memory>
 
 
-
 //パドルクラス
 class Paddle {
 private:

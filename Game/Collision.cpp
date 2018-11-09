@@ -1,11 +1,71 @@
 #include "Collision.h"
 
-Collision::Collision(std::unique_ptr<Paddle>& _paddle, std::unique_ptr<BallManager>& _ball_manager, std::unique_ptr<BlockManager>& _block_manager) 
-	: paddle(_paddle)
-	, ballManager(_ball_manager)
-	, blockManager(_block_manager) {
+Collision::Collision() {
 }
 
 void Collision::update() {
 
+	//ボールとパドルの当たり判定
+	float time, ref_angle;
+	for (auto &ball : *balls) {
+		if (Collider::collisionRect(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_angle)) {
+					ball->reflect(time, ref_angle);
+		}
+	}
+
+	//ボールとブロックの当たり判定
+	for (auto &ball : *balls) {
+		auto it = blocks->begin();
+		auto end = blocks->end();
+		for (; it != end;) {
+			if (Collider::collisionRect(*ball->getCollider(), *it->get()->getCollider(), &time, &ref_angle)) {
+				ball->reflect(time, ref_angle);
+				if (it->get()->collisionBall()) {
+					it = blocks->erase(it);
+					break;
+				}
+			}
+			++it;
+		}
+	}
+
+	////ボールとパドルの当たり判定
+	//auto it = ballManager->getBallsBigin();
+	//auto end = ballManager->getBallsEnd();
+	//float time, ref_angle;
+	//for (; it != end; ++it) {
+	//	if (Collider::collisionRect(*it->get()->getCollider(), *paddle->getCollider(), &time, &ref_angle)) {
+	//		it->get()->reflect(time, ref_angle);
+	//	}
+	//}
+
+	////ボールとブロックの当たり判定
+	//it = ballManager->getBallsBigin();
+	//end = ballManager->getBallsEnd();
+	//auto it2 = blockManager->getBlocksBigin();
+	//auto end2 = blockManager->getBlocksEnd();
+	//for (; it != end; ++it) {
+	//	for (; it2 != end2;) {
+	//		if (Collider::collisionRect(*it->get()->getCollider(), *it2->get()->getCollider(), &time, &ref_angle)) {
+	//			it->get()->reflect(time, ref_angle);
+	//			if (blockManager->collisionBallIt(&it2)) {
+	//				
+	//			}
+	//		}
+	//		++it2;
+	//	}
+	//}
 }
+
+void Collision::setPaddle(std::unique_ptr<Paddle> *_paddle) {
+	paddle = _paddle;
+}
+
+void Collision::setBalls(std::vector<std::unique_ptr<AbstractBall>>* _balls) {
+	balls = _balls;
+}
+
+void Collision::setBlocks(std::vector<std::unique_ptr<AbstractBlock>>* _blocks) {
+	blocks = _blocks;
+}
+

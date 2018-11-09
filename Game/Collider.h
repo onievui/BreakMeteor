@@ -22,7 +22,7 @@ public:
 	Collider(const COLLIDER_TYPE _type) : type(_type){}
 	virtual ~Collider() = default;
 
-	static bool CollsionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_angle);
+	static bool collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_angle);
 };
 
 

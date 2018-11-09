@@ -136,6 +136,12 @@
     <ClCompile Include="Game\MyMath.cpp">
       <Filter>ゲーム\ユーティリティ</Filter>
     </ClCompile>
+    <ClCompile Include="Game\AbstractBall.cpp">
+      <Filter>ゲーム\オブジェクト\ボール</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AbstractBlock.cpp">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
   <ItemGroup>

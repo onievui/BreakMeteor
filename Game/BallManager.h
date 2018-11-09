@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AbstractBall.h"
+#include "Collision.h"
 #include <vector>
 #include <memory>
 
@@ -10,12 +11,11 @@ private:
 	std::vector<std::unique_ptr<AbstractBall>> balls;
 
 public:
-	BallManager();
+	BallManager(std::unique_ptr<Collision> &_collision);
 	~BallManager();
 
 	void update();
 	void render() const;
 
-	auto getBallsBigin() const;
-	auto getBallsEnd() const;
+	
 };

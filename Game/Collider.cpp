@@ -14,7 +14,7 @@
 /// <returns>
 /// Õ“Ë‚µ‚½‚©‚Ç‚¤‚©
 /// </returns>
-bool Collider::CollsionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_angle) {
+bool Collider::collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_angle) {
 	//Še•ûŒü‚ÌÕ“Ë‚·‚é‚Ü‚Å‚ÌŠÔ
 	float xmin, xmax, ymin, ymax;
 	xmin = xmax = ymin = ymax = -1.f;
@@ -28,7 +28,7 @@ bool Collider::CollsionRect(RectCollider &_rect1, RectCollider &_rect2, float *_
 	if (!FloatEqual(vel.x ,0.f)) {
 		xmin = ((pos2.x - _rect2.width / 2) - (pos1.x + _rect1.width / 2)) / vel.x;
 		xmax = ((pos2.x + _rect2.width / 2) - (pos1.x - _rect1.width / 2)) / vel.x;
-		if (_rect1.pos->x > _rect2.pos->x) {
+		if (vel.x < 0) {
 			std::swap(xmin, xmax);
 		}
 	}
@@ -45,7 +45,7 @@ bool Collider::CollsionRect(RectCollider &_rect1, RectCollider &_rect2, float *_
 	if (!FloatEqual(vel.y, 0.f)) {
 		ymin = ((pos2.y - _rect2.height / 2) - (pos1.y + _rect1.height / 2)) / vel.y;
 		ymax = ((pos2.y + _rect2.height / 2) - (pos1.y - _rect1.height / 2)) / vel.y;
-		if (_rect1.pos->y > _rect2.pos->y) {
+		if (vel.y < 0) {
 			std::swap(ymin, ymax);
 		}
 	}
@@ -65,12 +65,12 @@ bool Collider::CollsionRect(RectCollider &_rect1, RectCollider &_rect2, float *_
 		//X•ûŒü‚ªæ‚ÉÕ“Ë‚µ‚Ä‚¢‚é
 		if (xmin > ymin) {
 			*_time = xmin;
-			*_ref_angle = 0;
+			*_ref_angle = DX_PI_F / 2;
 		}
 		//Y•ûŒü‚ªæ‚ÉÕ“Ë‚µ‚Ä‚¢‚é
 		else {
 			*_time = ymin;
-			*_ref_angle = DX_PI_F / 2;
+			*_ref_angle = 0;
 		}
 
 		return true;

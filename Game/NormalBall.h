@@ -14,6 +14,5 @@ public:
 
 	void update() override;
 	void draw() const override;
-
-	int aaa;
+	void reflect(const float _time, const float _ref_angle) override;
 };

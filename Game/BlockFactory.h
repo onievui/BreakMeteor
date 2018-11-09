@@ -23,5 +23,4 @@ public:
 
 	static std::unique_ptr<AbstractBlock> createBlock(const Vector2 &_pos, const BLOCK_TYPE _type);
 
-
 };

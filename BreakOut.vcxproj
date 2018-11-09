@@ -88,6 +88,8 @@
   </ItemDefinitionGroup>
   <!-- ソースファイル -->
   <ItemGroup>
+    <ClCompile Include="Game\AbstractBall.cpp" />
+    <ClCompile Include="Game\AbstractBlock.cpp" />
     <ClCompile Include="Game\AbstractScene.cpp" />
     <ClCompile Include="Game\BallManager.cpp" />
     <ClCompile Include="Game\BlockFactory.cpp" />

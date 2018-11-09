@@ -27,6 +27,7 @@ public:
 	virtual ~AbstractBall() = default;
 
 	virtual void update() = 0;
-
 	virtual void draw() const = 0;
+	virtual void reflect(const float _time, const float _ref_angle) = 0;
+	RectCollider* getCollider() const;
 };

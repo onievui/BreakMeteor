@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AbstractBlock.h"
+#include "Collision.h"
 #include <vector>
 #include <memory>
 
@@ -10,10 +11,10 @@ private:
 	std::vector<std::unique_ptr<AbstractBlock>> blocks;
 
 public:
-	BlockManager();
+	BlockManager(std::unique_ptr<Collision> &_collision);
 	~BlockManager();
 
 	void update();
-
 	void render() const;
+
 };

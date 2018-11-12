@@ -18,16 +18,11 @@ protected:
 
 public:
 	AbstractBall() = default;
-	AbstractBall(const Vector2 &_pos,const Vector2 &_vel, const float _radius, const float _angle, const float _speed)
-		: pos(_pos)
-		, vel(_vel)
-		, radius(_radius)
-		, angle(_angle)
-		, speed(_speed){}
+	AbstractBall(const Vector2 &_pos, const Vector2 &_vel, const float _radius, const float _angle, const float _speed);
 	virtual ~AbstractBall() = default;
 
-	virtual void update() = 0;
-	virtual void draw() const = 0;
-	virtual void reflect(const float _time, const float _ref_angle) = 0;
-	RectCollider* getCollider() const;
+	virtual void update() = 0;												//XV
+	virtual void draw() const = 0;											//•`‰æ
+	virtual void reflect(const float _time, const float _ref_angle) = 0;	//”½Ë
+	RectCollider* getCollider() const;										//“–‚½‚è”»’è‚Ìæ“¾
 };

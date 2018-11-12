@@ -1,8 +1,15 @@
 #include "Collision.h"
 
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
 Collision::Collision() {
 }
 
+/// <summary>
+/// 更新
+/// </summary>
 void Collision::update() {
 
 	//ボールとパドルの当たり判定
@@ -25,43 +32,28 @@ void Collision::update() {
 			++it;
 		}
 	}
-
-	////ボールとパドルの当たり判定
-	//auto it = ballManager->getBallsBigin();
-	//auto end = ballManager->getBallsEnd();
-	//float time, ref_angle;
-	//for (; it != end; ++it) {
-	//	if (Collider::collisionRect(*it->get()->getCollider(), *paddle->getCollider(), &time, &ref_angle)) {
-	//		it->get()->reflect(time, ref_angle);
-	//	}
-	//}
-
-	////ボールとブロックの当たり判定
-	//it = ballManager->getBallsBigin();
-	//end = ballManager->getBallsEnd();
-	//auto it2 = blockManager->getBlocksBigin();
-	//auto end2 = blockManager->getBlocksEnd();
-	//for (; it != end; ++it) {
-	//	for (; it2 != end2;) {
-	//		if (Collider::collisionRect(*it->get()->getCollider(), *it2->get()->getCollider(), &time, &ref_angle)) {
-	//			it->get()->reflect(time, ref_angle);
-	//			if (blockManager->collisionBallIt(&it2)) {
-	//				
-	//			}
-	//		}
-	//		++it2;
-	//	}
-	//}
 }
 
+/// <summary>
+/// パドルのポインタの設定
+/// </summary>
+/// <param name="_paddle">パドルのポインタ</param>
 void Collision::setPaddle(std::unique_ptr<Paddle> *_paddle) {
 	paddle = _paddle;
 }
 
+/// <summary>
+/// ボール配列のポインタの設定
+/// </summary>
+/// <param name="_balls">ボール配列のポインタ</param>
 void Collision::setBalls(std::vector<std::unique_ptr<AbstractBall>>* _balls) {
 	balls = _balls;
 }
 
+/// <summary>
+/// ブロック配列のポインタの設定
+/// </summary>
+/// <param name="_blocks">ブロック配列のポインタ</param>
 void Collision::setBlocks(std::vector<std::unique_ptr<AbstractBlock>>* _blocks) {
 	blocks = _blocks;
 }

@@ -25,15 +25,14 @@ public:
 	Paddle();
 	~Paddle() = default;
 
-	void initialize();
-	void update();
-	void draw() const;
-	void collisionBall(const float _time);
-	RectCollider* getCollider() const;
+	void initialize();                      //初期化
+	void update();                          //更新
+	void draw() const;                      //描画
+	void collisionBall(const float _time);	//ボールと衝突したときの処理
+	RectCollider* getCollider() const;      //当たり判定の取得
 
 private:
-	//パドルの移動
-	void move();
+	void move();	//パドルの移動
 
 	
 };

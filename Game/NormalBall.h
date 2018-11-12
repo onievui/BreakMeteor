@@ -3,16 +3,17 @@
 #include "AbstractBall.h"
 
 
+//ノーマルボールクラス
 class NormalBall : public AbstractBall {
 	
 private:
-	void collisionWall();
+	void collisionWall();	//壁と衝突したときの処理
 	
 public:
 	NormalBall();
 	~NormalBall();
 
-	void update() override;
-	void draw() const override;
-	void reflect(const float _time, const float _ref_surface) override;
+	void update() override;	                                            //更新
+	void draw() const override;                                         //描画
+	void reflect(const float _time, const float _ref_surface) override;	//反射
 };

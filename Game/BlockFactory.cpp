@@ -4,7 +4,15 @@
 #include "NormalBlock.h"
 
 
-
+/// <summary>
+/// ブロックの生成
+/// </summary>
+/// <param name="_pos">座標</param>
+/// <param name="_type">種類</param>
+/// <returns>
+/// 成功：生成したブロック
+/// 失敗：nullptr
+/// </returns>
 std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, const BLOCK_TYPE _type) {
 	//エラーチェック
 	if (_type <= BLOCK_TYPE::NONE || _type >= BLOCK_TYPE::TYPE_NUM) {

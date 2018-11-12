@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include <memory>
 
+//ブロックの抽象クラス
 class AbstractBlock {
 
 protected:

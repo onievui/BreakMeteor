@@ -14,8 +14,8 @@ public:
 	BallManager(std::unique_ptr<Collision> &_collision);
 	~BallManager();
 
-	void update();
-	void render() const;
+	void update();			//XV
+	void render() const;	//•`‰æ
 
 	
 };

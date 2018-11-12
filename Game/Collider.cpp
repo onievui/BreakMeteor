@@ -88,7 +88,14 @@ bool Collider::collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *
 }
 
 
-
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_pos">座標のポインタ</param>
+/// <param name="_offset">オフセット</param>
+/// <param name="_vel">速度のポインタ</param>
+/// <param name="_width">横幅</param>
+/// <param name="_height">縦幅</param>
 RectCollider::RectCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel, const float &_width, const float &_height) 
 	: Collider(COLLIDER_TYPE_RECT)
 	, pos(_pos)

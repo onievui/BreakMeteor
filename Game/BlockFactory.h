@@ -4,7 +4,7 @@
 #include <memory>
 
 
-
+//ブロックの種類
 enum BLOCK_TYPE {
 	NONE,
 	NORMAL_RED,
@@ -17,13 +17,13 @@ enum BLOCK_TYPE {
 };
 
 
-
+//ブロック生成クラス
 class BlockFactroy {
 
 public:
 	BlockFactroy() = default;
 	~BlockFactroy() = default;
 
-	static std::unique_ptr<AbstractBlock> createBlock(const Vector2 &_pos, const BLOCK_TYPE _type);
+	static std::unique_ptr<AbstractBlock> createBlock(const Vector2 &_pos, const BLOCK_TYPE _type);	//ブロックの生成
 
 };

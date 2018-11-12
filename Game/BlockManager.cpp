@@ -7,8 +7,12 @@
 
 using namespace StageData;
 
-#include <assert.h>
 
+/// <summary>
+/// コンストラクタ
+/// ステージの生成
+/// </summary>
+/// <param name="_collision">当たり判定クラスの参照</param>
 BlockManager::BlockManager(std::unique_ptr<Collision> &_collision) {
 
 	//当たり判定用に配列のポインタを渡す
@@ -35,10 +39,16 @@ BlockManager::BlockManager(std::unique_ptr<Collision> &_collision) {
 	}
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 BlockManager::~BlockManager() {
 
 }
 
+/// <summary>
+/// 更新
+/// </summary>
 void BlockManager::update() {
 	destroyCheck();
 	for (const auto &block : blocks) {
@@ -46,6 +56,9 @@ void BlockManager::update() {
 	}
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void BlockManager::render() const {
 	for (const auto &block : blocks) {
 		if (!block->isDestroyed()) {
@@ -54,6 +67,9 @@ void BlockManager::render() const {
 	}
 }
 
+/// <summary>
+/// 壊れているブロックがあるかの確認
+/// </summary>
 void BlockManager::destroyCheck() {
 	auto it = blocks.begin();
 	while (it != blocks.end()) {
@@ -64,6 +80,5 @@ void BlockManager::destroyCheck() {
 			it++;
 		}
 	}
-
 }
 

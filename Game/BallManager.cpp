@@ -4,7 +4,12 @@
 #include "NormalBall.h"
 
 
-
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_collision">
+/// 当たり判定クラスの参照
+/// </param>
 BallManager::BallManager(std::unique_ptr<Collision>& _collision) {
 
 	//当たり判定用に配列のポインタを渡す
@@ -19,6 +24,9 @@ BallManager::~BallManager() {
 
 }
 
+/// <summary>
+/// 更新
+/// </summary>
 void BallManager::update() {
 	for (auto &ball : balls) {
 		ball->update();
@@ -27,6 +35,9 @@ void BallManager::update() {
 	
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void BallManager::render() const {
 	for (auto &ball : balls) {
 		ball->draw();

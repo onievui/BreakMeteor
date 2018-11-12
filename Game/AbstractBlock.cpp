@@ -14,7 +14,8 @@ RectCollider* AbstractBlock::getCollider() const {
 /// ƒuƒƒbƒN‚ª‘¶İ‚·‚é‚©
 /// </summary>
 /// <returns>
-/// 
+/// true:‘¶İ‚·‚é
+/// false:‘¶İ‚µ‚È‚¢
 /// </returns>
 bool AbstractBlock::isDestroyed() const {
 	return !isValid;

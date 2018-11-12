@@ -14,7 +14,7 @@
 /// <returns>
 /// è’ìÀÇµÇΩÇ©Ç«Ç§Ç©
 /// </returns>
-bool Collider::collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_angle) {
+bool Collider::collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_normal) {
 	//äeï˚å¸ÇÃè’ìÀÇ∑ÇÈÇ‹Ç≈ÇÃéûä‘
 	float xmin, xmax, ymin, ymax;
 	xmin = xmax = ymin = ymax = -1.f;
@@ -65,17 +65,25 @@ bool Collider::collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *
 		//Xï˚å¸Ç™êÊÇ…è’ìÀÇµÇƒÇ¢ÇÈ
 		if (xmin > ymin) {
 			*_time = xmin;
-			*_ref_angle = DX_PI_F / 2;
+			if (pos1.x < pos2.x) {
+				*_ref_normal = PI;
+			}
+			else {
+				*_ref_normal = 0.f;
+			}
 		}
 		//Yï˚å¸Ç™êÊÇ…è’ìÀÇµÇƒÇ¢ÇÈ
 		else {
 			*_time = ymin;
-			*_ref_angle = 0;
+			if (pos1.y < pos2.y) {
+				*_ref_normal = PI * 1.5f;
+			}
+			else {
+				*_ref_normal = PI * 0.5f;
+			}
 		}
-
 		return true;
 	}
-	
 	return false;
 }
 

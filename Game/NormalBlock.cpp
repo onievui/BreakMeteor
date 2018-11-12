@@ -7,6 +7,7 @@ NormalBlock::NormalBlock(const Vector2 &_pos, const float _width, const float _h
 	width    = _width;
 	height   = _height;
 	hp       = _hp;
+	isValid  = true;
 	color    = std::move(_color);
 	collider = std::make_unique<RectCollider>(&pos, Vector2(0, 0), &vel, width, height);
 }
@@ -24,10 +25,9 @@ void NormalBlock::draw() const {
 	DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, ColorCode::COLOR_WHITE, false);
 }
 
-bool NormalBlock::collisionBall() {
+void NormalBlock::collisionBall() {
 	hp -= 1;
 	if (hp <= 0) {
-		return true;
+		isValid = false;
 	}
-	return false;
 }

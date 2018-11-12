@@ -40,6 +40,7 @@ BlockManager::~BlockManager() {
 }
 
 void BlockManager::update() {
+	destroyCheck();
 	for (const auto &block : blocks) {
 		block->update();
 	}
@@ -47,7 +48,22 @@ void BlockManager::update() {
 
 void BlockManager::render() const {
 	for (const auto &block : blocks) {
-		block->draw();
+		if (!block->isDestroyed()) {
+			block->draw();
+		}
 	}
+}
+
+void BlockManager::destroyCheck() {
+	auto it = blocks.begin();
+	while (it != blocks.end()) {
+		if (it->get()->isDestroyed()) {
+			it = blocks.erase(it);
+		}
+		else {
+			it++;
+		}
+	}
+
 }
 

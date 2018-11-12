@@ -27,11 +27,20 @@ void Paddle::draw() const {
 	DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, color->getColor(), true);
 }
 
+void Paddle::collisionBall(const float _time) {
+	vel *= _time;
+}
+
+
+
 RectCollider* Paddle::getCollider() const {
 	return collider.get();
 }
 
 void Paddle::move() {
+
+	pos += vel;
+
 	vel = { 0,0 };
 	float move_speed;
 	switch (Pad::getIns()->statePressLater(PadCode::LEFT, PadCode::RIGHT)) {
@@ -62,6 +71,4 @@ void Paddle::move() {
 		move_speed -= (next_x + width / 2 - FIELD::RIGHT);
 	}
 	vel.x = move_speed;
-
-	pos += vel;
 }

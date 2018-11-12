@@ -17,4 +17,6 @@ public:
 	void update();
 	void render() const;
 
+private:
+	void destroyCheck();
 };

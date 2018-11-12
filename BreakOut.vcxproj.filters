@@ -54,11 +54,11 @@
     <Filter Include="ゲーム\オブジェクト\ボール">
       <UniqueIdentifier>{cf46910d-3680-4a13-b420-2c257a6c398c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ゲーム\ユーティリティ\色関係">
-      <UniqueIdentifier>{c6a44d45-5472-43e3-bd66-9e13368ef081}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ゲーム\ユーティリティ\物理関係">
       <UniqueIdentifier>{f4277eae-420a-4e74-856c-b671db5c5ceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ゲーム\ユーティリティ\色関係">
+      <UniqueIdentifier>{c6a44d45-5472-43e3-bd66-9e13368ef081}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <!-- ソースファイル -->

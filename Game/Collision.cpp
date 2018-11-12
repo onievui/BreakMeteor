@@ -6,10 +6,10 @@ Collision::Collision() {
 void Collision::update() {
 
 	//ボールとパドルの当たり判定
-	float time, ref_angle;
+	float time, ref_normal;
 	for (auto &ball : *balls) {
-		if (Collider::collisionRect(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_angle)) {
-					ball->reflect(time, ref_angle);
+		if (Collider::collisionRect(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_normal)) {
+					ball->reflect(time, ref_normal);
 		}
 	}
 
@@ -18,12 +18,9 @@ void Collision::update() {
 		auto it = blocks->begin();
 		auto end = blocks->end();
 		for (; it != end;) {
-			if (Collider::collisionRect(*ball->getCollider(), *it->get()->getCollider(), &time, &ref_angle)) {
-				ball->reflect(time, ref_angle);
-				if (it->get()->collisionBall()) {
-					it = blocks->erase(it);
-					break;
-				}
+			if (!it->get()->isDestroyed() && Collider::collisionRect(*ball->getCollider(), *it->get()->getCollider(), &time, &ref_normal)) {
+				ball->reflect(time, ref_normal);
+				it->get()->collisionBall();
 			}
 			++it;
 		}

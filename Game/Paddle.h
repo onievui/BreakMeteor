@@ -28,6 +28,7 @@ public:
 	void initialize();
 	void update();
 	void draw() const;
+	void collisionBall(const float _time);
 	RectCollider* getCollider() const;
 
 private:

@@ -11,5 +11,5 @@ public:
 
 	void update() override;
 	void draw() const override;
-	bool collisionBall() override;
+	void collisionBall() override;
 };

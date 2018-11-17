@@ -128,6 +128,65 @@ bool Collider::collisionRectRotate(RectRotateCollider &_rect_rotate1, RectRotate
 }
 
 /// <summary>
+/// 円と回転矩形の重なり判定
+/// </summary>
+/// <param name="_circle">円</param>
+/// <param name="_rect_rotate">回転矩形</param>
+/// <returns>
+/// 衝突したかどうか
+/// </returns>
+bool Collider::collisionCircleRectRotate(CircleCollider &_circle, RectRotateCollider &_rect_rotate) {
+
+	//オフセットの計算
+	Vector2 circle_pos = *_circle.pos + _circle.offset;
+	Vector2 rect_rotate_pos = *_rect_rotate.pos + _rect_rotate.offset;
+
+	//各頂点との判定
+	Vector2 vertex[4];
+	for (int i = 0; i < 4; ++i) {
+		float x = _rect_rotate.width / 2.f;
+		float y = _rect_rotate.height / 2.f;
+		int xc = (i == 0 || i == 3) ? -1 : 1;
+		int yc = (i < 2) ? -1 : 1;
+		vertex[i] = Vector2::rotate(Vector2(x*xc, y*yc), *_rect_rotate.angle) + rect_rotate_pos;
+		if (collisionCirclePoint(_circle, vertex[i])) {
+			return true;
+		}
+		
+	}
+
+	//各線分との判定
+	for (int i = 0; i < 4; ++i) {
+		Vector2 vec1 = vertex[(i + 1) % 4] - vertex[i];
+		Vector2 vec2 = circle_pos - vertex[i];
+		Vector2 vec3 = circle_pos - vertex[(i + 1) % 4];
+		float cross = Vector2::cross(vec2, vec1);
+		float d = cross * cross / Vector2::length(vec1);
+		if (d <= _circle.radius*_circle.radius) {
+			if (Vector2::dot(vec2, vec1)*Vector2::dot(vec3, vec1) < 0) {
+				return true;
+			}
+		}
+	}
+
+	//内外判定
+	float theta[2];
+	for (int i = 0; i<2; i++) {
+		Vector2 vec1 = vertex[i * 2 + 1] - vertex[i * 2];
+		Vector2 vec2 = circle_pos - vertex[i * 2];
+		theta[i] = atan2f(Vector2::cross(vec1, vec2), Vector2::dot(vec1, vec2));
+	}
+
+	if (0 <= theta[0] && theta[0] <= PI / 2 &&
+		0 <= theta[1] && theta[1] <= PI / 2) {
+		return true;
+	}
+
+	return false;
+
+}
+
+/// <summary>
 /// 円と回転矩形の衝突判定（近似値）
 /// </summary>
 /// <param name="_circle">近似される円</param>
@@ -153,7 +212,7 @@ bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, Rec
 	float t_a, t_b;
 
 	//衝突状態
-	bool isCollision = false;
+	bool is_collision = false;
 
 	//各頂点座標との距離の計算
 	Vector2 vertex[4];
@@ -164,52 +223,53 @@ bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, Rec
 		int xc = (i == 0 || i == 3) ? -1 : 1;
 		int yc = (i < 2) ? -1 : 1;
 		vertex[i] = Vector2::rotate(Vector2(x*xc, y*yc), *_rect_rotate.angle) + rect_rotate_pos;
-		vertex_distance[i] = Vector2::distancePowPoint(circle_pos, vertex[i]);
+		vertex_distance[i] = Vector2::distanceSquare(circle_pos, vertex[i]);
 	}
-
-	DrawQuadrangleAA(vertex[0].x, vertex[0].y, vertex[1].x, vertex[1].y, vertex[2].x, vertex[2].y, vertex[3].x, vertex[3].y, COLOR_BLUE, true);
-
 
 	//回転矩形の左側に近い場合
 	if (vertex_distance[0] < vertex_distance[1]) {
 		if (collisionCircleSegment(circle, vertex[0], vertex[3], &t_a)) {
-			isCollision = true;
 			*_time = t_a;
 			*_ref_normal = *_rect_rotate.angle + PI;
+			is_collision = true;
 		}
 	}
+	//回転矩形の右側に近い場合
 	else {
 		if (collisionCircleSegment(circle, vertex[1], vertex[2], &t_a)) {
-			isCollision = true;
 			*_time = t_a;
 			*_ref_normal = *_rect_rotate.angle;
+			is_collision = true;
 		}
 	}
 
 	//回転矩形の上側に近い場合
 	if (vertex_distance[1] < vertex_distance[2]) {
 		if (collisionCircleSegment(circle, vertex[0], vertex[1], &t_b)) {
-			isCollision = true;
-			if (FloatEqual(t_a, -1.f) || t_b < t_a) {
+			if (!is_collision || t_b < t_a) {
 				*_time = t_b;
 				*_ref_normal = *_rect_rotate.angle + PI * 3 / 2;
+				is_collision = true;
 			}
 		}
 	}
+	//回転矩形の下側に近い場合
 	else {
 		if (collisionCircleSegment(circle, vertex[2], vertex[3], &t_b)) {
-			isCollision = true;
-			if (FloatEqual(t_a, -1.f) || t_b < t_a) {
+			if (!is_collision || t_b < t_a) {
 				*_time = t_b;
 				*_ref_normal = *_rect_rotate.angle + PI / 2;
+
+				is_collision = true;
 			}
 		}
 	}
 
-	//早く衝突したほうを返す
-	*_time = t_a < t_b ? (t_a >= 0 ? t_a : t_b) : (t_b >= 0 ? t_b : t_a);
+	return is_collision;
 
-	return isCollision;
+	//Vector2 circle_pos = Vector2::rotate(*_circle.pos + _circle.offset, -*_rect_rotate.angle, *_rect_rotate.pos + _rect_rotate.offset);
+	//Vector2 circle_vel = Vector2::rotate(*_circle.vel, -*_rect_rotate.angle);
+	//Vector2 rect_rotate_vel = Vector2::rotate(*_rect_rotate.vel, -*_rect_rotate.angle);
 
 	////円を近似した矩形に変換
 	//RectCollider rect1(&circle_pos, _circle.offset, &circle_vel, _circle.radius*2, _circle.radius*2);
@@ -230,6 +290,22 @@ bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, Rec
 	//	return true;
 	//}
 	//return false;
+}
+
+/// <summary>
+/// 円と点の重なり判定
+/// </summary>
+/// <param name="_circle">円</param>
+/// <param name="_point">点</param>
+/// <returns>
+/// 衝突したかどうか
+/// </returns>
+bool Collider::collisionCirclePoint(CircleCollider &_circle, Vector2 &_point) {
+	Vector2 circle_pos = *_circle.pos + _circle.offset;
+	if (Vector2::distanceSquare(circle_pos, _point) <= _circle.radius*_circle.radius) {
+		return true;
+	}
+	return false;
 }
 
 

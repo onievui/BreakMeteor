@@ -70,7 +70,13 @@ public:
 		return _os;
 	}
 
-	static float distancePowPoint(const Vector2 &_pos1, const Vector2 &_pos2);
+	static float length(const Vector2 &_vec);
+	static float lengthSquare(const Vector2 &_vec);
+	static float distance(const Vector2 &_pos1, const Vector2 &_pos2);
+	static float distanceSquare(const Vector2 &_pos1, const Vector2 &_pos2);
+	static Vector2 normalize(const Vector2 &_vec);
+	static float dot(const Vector2 &_vec1, const Vector2 &_vec2);
+	static float cross(const Vector2 &_vec1, const Vector2 &_vec2);
 	static Vector2 createWithAngleNorm(const float _angle, const float _norm);
 	static Vector2 clamp(const Vector2 &_vec, const Vector2 &_min, const Vector2 &_max);
 	static Vector2 rotate(const Vector2 &_vec, const float _rad, const Vector2 &_center = Vector2(0,0));

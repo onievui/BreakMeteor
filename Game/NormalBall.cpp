@@ -84,13 +84,13 @@ void NormalBall::regulateAngle()  {
 		angle += PI2;
 	}
 	//КpУxВ╠Т▓Ро
-	float tmp_angle = std::fmodf(angle, PI / 2);
-	if (tmp_angle < PI / 12) {
-		angle += PI / 12;
-	}
-	else if (tmp_angle > PI * 11 / 12) {
-		angle -= PI / 12;
-	}
+	//float tmp_angle = std::fmodf(angle, PI / 2);
+	//if (tmp_angle < PI / 12) {
+	//	angle += PI / 12;
+	//}
+	//else if (tmp_angle > PI * 11 / 12) {
+	//	angle -= PI / 12;
+	//}
 }
 
 /// <summary>

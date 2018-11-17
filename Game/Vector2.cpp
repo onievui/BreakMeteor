@@ -4,8 +4,36 @@
 using namespace std;
 
 
-float Vector2::distancePowPoint(const Vector2 &_pos1, const Vector2 &_pos2) {
+float Vector2::length(const Vector2 &_vec) {
+	return sqrtf(lengthSquare(_vec));
+}
+
+float Vector2::lengthSquare(const Vector2 & _vec) {
+	return (_vec.x*_vec.x) + (_vec.y*_vec.y);
+}
+
+float Vector2::distance(const Vector2 & _pos1, const Vector2 & _pos2) {
+	return sqrtf(distanceSquare(_pos1, _pos2));
+}
+
+float Vector2::distanceSquare(const Vector2 &_pos1, const Vector2 &_pos2) {
 	return (_pos1.x - _pos2.x)*(_pos1.x - _pos2.x) + (_pos1.y - _pos2.y)*(_pos1.y - _pos2.y);
+}
+
+Vector2 Vector2::normalize(const Vector2 &_vec) {
+	float vec_length = length(_vec);
+	if (vec_length == 0) {
+		return Vector2(0, 0);
+	}
+	return _vec / vec_length;
+}
+
+float Vector2::dot(const Vector2 & _vec1, const Vector2 & _vec2) {
+	return _vec1.x*_vec2.x + _vec1.y*_vec2.y;
+}
+
+float Vector2::cross(const Vector2 & _vec1, const Vector2 & _vec2) {
+	return _vec1.x*_vec2.y - _vec1.y*_vec2.x;
 }
 
 Vector2 Vector2::createWithAngleNorm(const float _angle, const float _norm) {

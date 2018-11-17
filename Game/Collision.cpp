@@ -12,11 +12,27 @@ Collision::Collision() {
 /// </summary>
 void Collision::update() {
 
+	//パドルの移動制限
+	RectRotateCollider moved_paddle = *paddle->get()->getCollider();
+	Vector2 paddle_moved_pos = *moved_paddle.pos + *moved_paddle.vel;
+	float paddle_rotated_angle = paddle->get()->getRotatedAngle();
+	moved_paddle.pos = &paddle_moved_pos;
+	moved_paddle.angle = &paddle_rotated_angle;
+	for (auto &ball : *balls) {
+		//移動後にボールと衝突していたら移動しないようにする
+		if (Collider::collisionCircleRectRotate(*ball->getCollider(), moved_paddle)) {
+			paddle->get()->cancelMove();
+			break;
+		}
+	}
+	paddle->get()->rotate();
+
 	//ボールとパドルの当たり判定
 	float time, ref_normal;
 	for (auto &ball : *balls) {
 		if (Collider::collisionCircleRectRotateApproximate(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_normal)) {
 					ball->reflect(time, ref_normal, paddle->get()->getPos().x);
+					paddle->get()->onHitBall(time);
 		}
 	}
 

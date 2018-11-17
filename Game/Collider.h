@@ -27,10 +27,13 @@ public:
 	virtual ~Collider() = default;
 
 	static bool collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_normal);	//矩形同士の当たり判定
-	static bool collisionRectRotate(RectRotateCollider &_rect_rotate1, RectRotateCollider &_rect_rotate2);		//回転矩形同士の当たり判定
-	static bool collisionCircleRectRotateApproximate(CircleCollider &_circle, RectRotateCollider &_rect_rotate, float *_time, float *_ref_normal);	//円と回転矩形同士の当たり判定（近似）
+	static bool collisionRectRotate(RectRotateCollider &_rect_rotate1, RectRotateCollider &_rect_rotate2);		//回転矩形同士の重なり判定
+	static bool collisionCircleRectRotate(CircleCollider &_circle, RectRotateCollider &_rect_rotate);	//円と回転矩形の重なり判定
+	static bool collisionCircleRectRotateApproximate(CircleCollider &_circle, RectRotateCollider &_rect_rotate, float *_time, float *_ref_normal);	//円と回転矩形の当たり判定（近似）
+	static bool collisionCirclePoint(CircleCollider &_circle, Vector2 &_point);	//円と点の重なり判定
 	static bool crossSegment(const Vector2 &_p1, const Vector2 &_p2, const Vector2 &_p3, const Vector2 &_p4);	//線分の交差判定
-	static bool collisionCircleSegment(const CircleCollider &_circle, Vector2 &_p1, Vector2 &_p2, float *_time);
+	static bool collisionCircleSegment(const CircleCollider &_circle, Vector2 &_p1, Vector2 &_p2, float *_time);	//線分と点の衝突判定
+
 };
 
 //矩形コライダー

@@ -18,6 +18,7 @@ void Paddle::initialize() {
 	pos    = { (int)DEFAULT_POS_X,(int)DEFAULT_POS_Y };
 	vel    = { 0,0 };
 	angle  = 0;
+	rotateVel = 0;
 	width  = 80;
 	height = 16;
 	speed  = 5;
@@ -30,8 +31,9 @@ void Paddle::initialize() {
 /// </summary>
 void Paddle::update() {
 	move();
-	if (Pad::getIns()->statePress(PadCode::Z))
-		angle += PI / 90;
+	if (Pad::getIns()->statePress(PadCode::Z)) {
+		rotateVel = PI / 90;
+	}
 }
 
 /// <summary>
@@ -68,14 +70,49 @@ RectRotateCollider* Paddle::getCollider() const {
 	return collider.get();
 }
 
+/// <summary>
+/// ÀˆÀ•U‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// À•W
+/// </returns>
 const Vector2& Paddle::getPos() const {
 	return pos;
 }
 
-//ˆÚ“®
+/// <summary>
+/// ‰ñ“]Œã‚ÌŠp“x‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// ‰ñ“]Œã‚ÌŠp“x
+/// </returns>
+float Paddle::getRotatedAngle() const {
+	return angle + rotateVel;
+}
+
+/// <summary>
+/// ˆÚ“®‚Ì’†~
+/// </summary>
+void Paddle::cancelMove() {
+	vel = { 0,0 };
+	rotateVel = 0;
+}
+
+/// <summary>
+/// ‰ñ“]‚³‚¹‚é
+/// </summary>
+void Paddle::rotate() {
+	angle += rotateVel;
+}
+
+
+/// <summary>
+/// ˆÚ“®ˆ—
+/// </summary>
 void Paddle::move() {
 	pos += vel;
 	vel = { 0,0 };
+	rotateVel = 0;
 	float move_speed;
 	switch (Pad::getIns()->statePressLater(PadCode::LEFT, PadCode::RIGHT)) {
 	//ˆÚ“®‚µ‚Ä‚¢‚È‚¢

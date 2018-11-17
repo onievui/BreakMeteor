@@ -44,7 +44,7 @@ class FrameTimer final
 
 		// 操作
 		void Reset();     // リセット
-		void Update();    // 更新
+		void update();    // 更新
 
 		// 属性
 		float GetFrameDeltaTime(void);    // フレームの経過時間の取得

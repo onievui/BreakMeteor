@@ -1,5 +1,6 @@
 #include "Paddle.h"
 #include "Field.h"
+#include "MyMath.h"
 #include "Pad.h"
 
 
@@ -20,7 +21,7 @@ void Paddle::initialize() {
 	width  = 80;
 	height = 16;
 	speed  = 5;
-	collider = std::make_unique<RectCollider>(&pos, Vector2(0, 0), &vel, width, height);
+	collider = std::make_unique<RectRotateCollider>(&pos, Vector2(0, 0), &vel, width, height, &angle);
 	color = std::make_unique<RGBColor>(ColorCode::COLOR_WHITE);
 }
 
@@ -29,20 +30,33 @@ void Paddle::initialize() {
 /// </summary>
 void Paddle::update() {
 	move();
+	if (Pad::getIns()->statePress(PadCode::Z))
+		angle += PI / 90;
 }
 
 /// <summary>
 /// 描画
 /// </summary>
 void Paddle::draw() const {
-	DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, color->getColor(), true);
+
+	Vector2 seg_pos[2];
+	seg_pos[0] = pos + Vector2::createWithAngleNorm(angle, width / 2);
+	seg_pos[1] = pos + Vector2::createWithAngleNorm(angle + PI, width / 2);
+
+	Vector2 ver_pos[4];
+	ver_pos[0] = seg_pos[0] + Vector2::createWithAngleNorm(angle - PI / 2, height / 2);
+	ver_pos[1] = seg_pos[0] + Vector2::createWithAngleNorm(angle + PI / 2, height / 2);
+	ver_pos[2] = seg_pos[1] + Vector2::createWithAngleNorm(angle + PI / 2, height / 2);
+	ver_pos[3] = seg_pos[1] + Vector2::createWithAngleNorm(angle - PI / 2, height / 2);
+
+	DrawQuadrangleAA(ver_pos[0].x, ver_pos[0].y, ver_pos[1].x, ver_pos[1].y, ver_pos[2].x, ver_pos[2].y, ver_pos[3].x, ver_pos[3].y, color->getColor(), true);
 }
 
 /// <summary>
 /// ボールと衝突したときの処理
 /// </summary>
 /// <param name="_time">衝突までの時間</param>
-void Paddle::collisionBall(const float _time) {
+void Paddle::onHitBall(const float _time) {
 	vel *= _time;
 }
 
@@ -50,8 +64,12 @@ void Paddle::collisionBall(const float _time) {
 /// 当たり判定の取得
 /// </summary>
 /// <returns>当たり判定のポインタ</returns>
-RectCollider* Paddle::getCollider() const {
+RectRotateCollider* Paddle::getCollider() const {
 	return collider.get();
+}
+
+const Vector2& Paddle::getPos() const {
+	return pos;
 }
 
 //移動

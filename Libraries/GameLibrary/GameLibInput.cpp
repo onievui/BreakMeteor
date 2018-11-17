@@ -162,7 +162,7 @@ Joypad::~Joypad()
 //!
 //! @return ‚È‚µ
 //----------------------------------------------------------------------
-void Joypad::Update(void)
+void Joypad::update(void)
 {
 	// ó‘Ô‚Ì—š—ğ‚ğ•Û‘¶
 	m_last_state = m_current_state;
@@ -207,7 +207,7 @@ Mouse::~Mouse()
 //!
 //! @return ‚È‚µ
 //------------------------------------------------------------------
-void Mouse::Update()
+void Mouse::update()
 {
 	// ó‘Ô‚Ì—š—ğ‚ğ•Û‘¶
 	m_last_state = m_current_state;

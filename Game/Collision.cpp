@@ -15,8 +15,8 @@ void Collision::update() {
 	//ボールとパドルの当たり判定
 	float time, ref_normal;
 	for (auto &ball : *balls) {
-		if (Collider::collisionRect(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_normal)) {
-					ball->reflect(time, ref_normal);
+		if (Collider::collisionCircleRectRotateApproximate(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_normal)) {
+					ball->reflect(time, ref_normal, paddle->get()->getPos().x);
 		}
 	}
 
@@ -25,9 +25,9 @@ void Collision::update() {
 		auto it = blocks->begin();
 		auto end = blocks->end();
 		for (; it != end;) {
-			if (!it->get()->isDestroyed() && Collider::collisionRect(*ball->getCollider(), *it->get()->getCollider(), &time, &ref_normal)) {
+			if (!it->get()->isDestroyed() && Collider::collisionCircleRectRotateApproximate(*ball->getCollider(), *it->get()->getCollider(), &time, &ref_normal)) {
 				ball->reflect(time, ref_normal);
-				it->get()->collisionBall();
+				it->get()->onHitBall();
 			}
 			++it;
 		}

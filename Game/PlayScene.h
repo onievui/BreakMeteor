@@ -12,25 +12,20 @@
 class PlayScene : public AbstractScene {
 
 private:
-	std::unique_ptr<Paddle> paddle;
-	std::unique_ptr<BallManager> ballManager;
-	std::unique_ptr<BlockManager> blockManager;
-	std::unique_ptr<Collision> collision;
+	std::unique_ptr<Paddle> paddle;				//パドルオブジェクト
+	std::unique_ptr<BallManager> ballManager;	//ボール管理オブジェクト
+	std::unique_ptr<BlockManager> blockManager;	//ブロック管理オブジェクト
+	std::unique_ptr<Collision> collision;		//当たり判定用オブジェクト
 
 public:
-	//シーン切り替えインタフェースの登録
 	PlayScene(RequestSceneListener *_impl);
 	~PlayScene();
 
-	//初期化
-	void initialize() override;
 
-	//更新
-	void update() override;
+	void initialize() override;	//初期化
+	void update() override;	    //更新
+	void render() override;	    //描画
+	void finalize() override;	//終了処理
 
-	//描画
-	void render() override;
-
-	//終了処理
-	void finalize() override;
+	static std::unique_ptr<AbstractScene> create(RequestSceneListener *_impl);	//シーン生成関数
 };

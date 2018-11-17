@@ -12,5 +12,5 @@ public:
 
 	void update() override;			//更新
 	void draw() const override;		//描画
-	void collisionBall() override;	//ボールと衝突したときの処理
+	void onHitBall() override;	//ボールと衝突したときの処理
 };

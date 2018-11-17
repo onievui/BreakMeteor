@@ -8,3 +8,4 @@
 AbstractScene::AbstractScene(RequestSceneListener *_impl)
 	: implRequestScene(_impl) {
 }
+

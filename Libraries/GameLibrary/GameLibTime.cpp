@@ -51,7 +51,7 @@ FrameTimer::~FrameTimer()
 //!
 //! @return ‚È‚µ
 //------------------------------------------------------------------
-void FrameTimer::Update()
+void FrameTimer::update()
 {
 	// ŽžŠÔ‚ÌŒv‘ª
 	m_previous_time = m_current_time;

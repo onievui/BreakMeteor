@@ -70,8 +70,8 @@ public:
 		return _os;
 	}
 
+	static float distancePowPoint(const Vector2 &_pos1, const Vector2 &_pos2);
 	static Vector2 createWithAngleNorm(const float _angle, const float _norm);
-	
 	static Vector2 clamp(const Vector2 &_vec, const Vector2 &_min, const Vector2 &_max);
-
+	static Vector2 rotate(const Vector2 &_vec, const float _rad, const Vector2 &_center = Vector2(0,0));
 };

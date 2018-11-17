@@ -53,3 +53,14 @@ void PlayScene::render() {
 void PlayScene::finalize() {
 	
 }
+
+/// <summary>
+/// シーン生成処理
+/// </summary>
+/// <param name="_impl">インタフェースへのポインタ</param>
+/// <returns>
+/// シーンオブジェクト
+/// </returns>
+std::unique_ptr<AbstractScene> PlayScene::create(RequestSceneListener * _impl) {
+	return std::move(std::make_unique<PlayScene>(_impl));
+}

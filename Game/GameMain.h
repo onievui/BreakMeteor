@@ -29,29 +29,28 @@ const int SCREEN_CENTER_Y = SCREEN_HEIGHT / 2;    // 画面の中央(Y座標)
 /// ゲームクラス
 /// </summary>
 class Game : public RequestSceneListener {
-    // データメンバの宣言
-	private:
-		std::unique_ptr<AbstractScene> nowScene;
-		SceneID nextScene;
 
-	// メンバ関数の宣言
-	public:
-		// コンストラクタ
-		Game();
+private:
+	using SceneFactoryMethod = std::unique_ptr<AbstractScene>(*)(RequestSceneListener *_impl);	//シーン生成関数
 
-		// デストラクタ
-		~Game();
+	std::unique_ptr<AbstractScene> nowScene;	                //現在のシーン
+	SceneID nextScene;							                //次に実行するシーン
+	SceneFactoryMethod sceneFactoryMethods[SceneID::SCENE_NUM];	//シーン生成関数のポインタ
 
-		//シーン切り替え
-		void changeScene();
+public:
+	Game();
+	~Game();
 
-	public:
-		// 操作
-		void Initialize(void);
-		void Update(void);
-		void Render(void);
-		void Finalize(void);
+	void changeScene();	//シーン切り替え
 
-		//シーン切り替え要求
-		void requestScene(const SceneID _id) override;
+public:
+	void initialize(void);
+	void update(void);
+	void render(void);
+	void finalize(void);
+
+	void requestScene(const SceneID _id) override; 	//シーン切り替え要求
+
+private:
+	void addScene(const SceneID _id, SceneFactoryMethod _scene_factory_method);
 };

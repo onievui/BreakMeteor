@@ -46,8 +46,9 @@ Game::~Game() {
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Game::Initialize(void) {
-	nowScene = std::make_unique<PlayScene>(this);
+void Game::initialize(void) {
+	addScene(SCENE_PLAY, PlayScene::create);
+	nowScene = sceneFactoryMethods[SCENE_PLAY](this);
 	nextScene = SCENE_NONE;
 }
 
@@ -60,7 +61,7 @@ void Game::Initialize(void) {
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Game::Update(void) {
+void Game::update(void) {
 	Pad::getIns()->update();
 	if (nextScene != SCENE_NONE) {
 		changeScene();
@@ -77,7 +78,7 @@ void Game::Update(void) {
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Game::Render(void) {
+void Game::render(void) {
 	nowScene->render();
 }
 
@@ -90,7 +91,7 @@ void Game::Render(void) {
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Game::Finalize(void) {
+void Game::finalize(void) {
 
 }
 
@@ -110,6 +111,27 @@ void Game::requestScene(const SceneID _id) {
 }
 
 //----------------------------------------------------------------------
+//! @brief シーンの追加
+//!
+//! @param[in] _id 追加するシーンID
+//!                   _scene_factory_method シーン生成関数
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Game::addScene(const SceneID _id, SceneFactoryMethod _scene_factory_method) {
+	if (_id <= SCENE_NONE || _id >= SCENE_NUM) {
+		MessageBox(NULL, "シーンの追加で不正なシーンIDが渡されました", "", MB_OK);
+		return;
+	}
+	if (_scene_factory_method == nullptr) {
+		MessageBox(NULL, "シーンの追加で不正な生成関数が渡されました", "", MB_OK);
+		return;
+	}
+
+	sceneFactoryMethods[_id] = _scene_factory_method;
+}
+
+//----------------------------------------------------------------------
 //! @brief シーンの切り替え処理
 //!
 //! @param[in] _id 次のシーンID
@@ -118,14 +140,10 @@ void Game::requestScene(const SceneID _id) {
 //----------------------------------------------------------------------
 void Game::changeScene(void) {
 	nowScene->finalize();
-	switch (nextScene) {
-	case SCENE_PLAY:
-		nowScene = std::make_unique<PlayScene>(this);
-		break;
-	default:
-		MessageBox(NULL, "シーンの切り替え処理で不正な値が渡されました", "", MB_OK);
+	if (nextScene <= SCENE_NONE || nextScene >= SCENE_NUM) {
+		MessageBox(NULL, "シーンの追切り替え処理で不正なシーンIDが渡されました", "", MB_OK);
 		return;
-		break;
 	}
+	nowScene = sceneFactoryMethods[nextScene](this);
 	nextScene = SCENE_NONE;
 }

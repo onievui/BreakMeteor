@@ -23,6 +23,6 @@ AbstractBall::AbstractBall(const Vector2 &_pos, const Vector2 &_vel, const float
 /// <returns>
 /// “–‚½‚è”»’è‚Ìƒ|ƒCƒ“ƒ^
 /// </returns>
-RectCollider* AbstractBall::getCollider() const {
+CircleCollider* AbstractBall::getCollider() const {
 	return collider.get();
 }

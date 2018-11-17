@@ -6,7 +6,7 @@
 /// <returns>
 /// “–‚½‚è”»’è‚Ìƒ|ƒCƒ“ƒ^
 /// </returns>
-RectCollider* AbstractBlock::getCollider() const {
+RectRotateCollider* AbstractBlock::getCollider() const {
 	return collider.get();
 }
 

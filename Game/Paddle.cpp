@@ -4,6 +4,10 @@
 #include "Pad.h"
 
 
+const int Paddle::DEFAULT_POS_X = 225; //パドルの初期X座標
+const int Paddle::DEFAULT_POS_Y = 700; //パドルの初期Y座標
+
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -31,9 +35,6 @@ void Paddle::initialize() {
 /// </summary>
 void Paddle::update() {
 	move();
-	if (Pad::getIns()->statePress(PadCode::Z)) {
-		rotateVel = PI / 90;
-	}
 }
 
 /// <summary>
@@ -41,17 +42,15 @@ void Paddle::update() {
 /// </summary>
 void Paddle::draw() const {
 
-	Vector2 seg_pos[2];
-	seg_pos[0] = pos + Vector2::createWithAngleNorm(angle, width / 2);
-	seg_pos[1] = pos + Vector2::createWithAngleNorm(angle + PI, width / 2);
-
-	Vector2 ver_pos[4];
-	ver_pos[0] = seg_pos[0] + Vector2::createWithAngleNorm(angle - PI / 2, height / 2);
-	ver_pos[1] = seg_pos[0] + Vector2::createWithAngleNorm(angle + PI / 2, height / 2);
-	ver_pos[2] = seg_pos[1] + Vector2::createWithAngleNorm(angle + PI / 2, height / 2);
-	ver_pos[3] = seg_pos[1] + Vector2::createWithAngleNorm(angle - PI / 2, height / 2);
-
-	DrawQuadrangleAA(ver_pos[0].x, ver_pos[0].y, ver_pos[1].x, ver_pos[1].y, ver_pos[2].x, ver_pos[2].y, ver_pos[3].x, ver_pos[3].y, color->getColor(), true);
+	//各頂点座標の計算
+	Vector2 vertex[4];
+	for (int i = 0; i < 4; ++i) {
+		int xc = (i == 0 || i == 3) ? -1 : 1;
+		int yc = (i < 2) ? -1 : 1;
+		vertex[i] = Vector2::rotate(Vector2(width / 2.f * xc, height / 2.f * yc), angle) + pos;
+	}
+	
+	DrawQuadrangleAA(vertex[0].x, vertex[0].y, vertex[1].x, vertex[1].y, vertex[2].x, vertex[2].y, vertex[3].x, vertex[3].y, color->getColor(), true);
 }
 
 /// <summary>
@@ -113,6 +112,8 @@ void Paddle::move() {
 	pos += vel;
 	vel = { 0,0 };
 	rotateVel = 0;
+
+	//左右移動
 	float move_speed;
 	switch (Pad::getIns()->statePressLater(PadCode::LEFT, PadCode::RIGHT)) {
 	//移動していない
@@ -132,6 +133,27 @@ void Paddle::move() {
 		return;
 		break;
 	}
+	
+	//回転
+	switch (Pad::getIns()->statePressLater(PadCode::Z, PadCode::X)) {
+		//回転していない
+	case 0:
+		rotateVel = 0;
+		break;
+		//左に回転
+	case 1:
+		rotateVel = -PI / 90;
+		break;
+		//右に回転
+	case 2:
+		rotateVel = PI / 90;
+		break;
+	default:
+		MessageBox(NULL, "パドルの回転で不正な値が渡されました", "", MB_OK);
+		return;
+		break;
+	}
+
 
 	//フィールド外に出ないようにする
 	float next_x = pos.x + move_speed;

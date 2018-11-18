@@ -32,27 +32,23 @@ NormalBlock::~NormalBlock() {
 /// 更新
 /// </summary>
 void NormalBlock::update() {
-
+	pos.y += 0.5f;
 }
 
 /// <summary>
 /// 描画
 /// </summary>
 void NormalBlock::draw() const {
-	Vector2 seg_pos[2];
-	seg_pos[0] = pos + Vector2::createWithAngleNorm(angle, width / 2);
-	seg_pos[1] = pos + Vector2::createWithAngleNorm(angle + PI, width / 2);
+	//各頂点座標の計算
+	Vector2 vertex[4];
+	for (int i = 0; i < 4; ++i) {
+		int xc = (i == 0 || i == 3) ? -1 : 1;
+		int yc = (i < 2) ? -1 : 1;
+		vertex[i] = Vector2::rotate(Vector2(width / 2.f * xc, height / 2.f * yc), angle) + pos;
+	}
 
-	Vector2 ver_pos[4];
-	ver_pos[0] = seg_pos[0] + Vector2::createWithAngleNorm(angle - PI / 2, height / 2);
-	ver_pos[1] = seg_pos[0] + Vector2::createWithAngleNorm(angle + PI / 2, height / 2);
-	ver_pos[2] = seg_pos[1] + Vector2::createWithAngleNorm(angle + PI / 2, height / 2);
-	ver_pos[3] = seg_pos[1] + Vector2::createWithAngleNorm(angle - PI / 2, height / 2);
-
-	DrawQuadrangleAA(ver_pos[0].x, ver_pos[0].y, ver_pos[1].x, ver_pos[1].y, ver_pos[2].x, ver_pos[2].y, ver_pos[3].x, ver_pos[3].y, color->getColor(), true);
-	DrawQuadrangleAA(ver_pos[0].x, ver_pos[0].y, ver_pos[1].x, ver_pos[1].y, ver_pos[2].x, ver_pos[2].y, ver_pos[3].x, ver_pos[3].y, COLOR_WHITE, false);
-	//DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, color->getColor(), true);
-	//DrawBoxAA(pos.x - width / 2, pos.y - height / 2, pos.x + width / 2, pos.y + height / 2, ColorCode::COLOR_WHITE, false);
+	DrawQuadrangleAA(vertex[0].x, vertex[0].y, vertex[1].x, vertex[1].y, vertex[2].x, vertex[2].y, vertex[3].x, vertex[3].y, color->getColor(), true);
+	DrawQuadrangleAA(vertex[0].x, vertex[0].y, vertex[1].x, vertex[1].y, vertex[2].x, vertex[2].y, vertex[3].x, vertex[3].y, COLOR_WHITE, false);
 }
 
 /// <summary>

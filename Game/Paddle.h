@@ -9,8 +9,8 @@
 //パドルクラス
 class Paddle {
 private:
-	const static int DEFAULT_POS_X = 320; //パドルの初期X座標
-	const static int DEFAULT_POS_Y = 440; //パドルの初期Y座標
+	const static int DEFAULT_POS_X; //パドルの初期X座標
+	const static int DEFAULT_POS_Y; //パドルの初期Y座標
 
 	Vector2 pos;                                    //座標
 	Vector2 vel;                                    //速度

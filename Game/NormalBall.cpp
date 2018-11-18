@@ -8,7 +8,7 @@
 /// コンストラクタ
 /// </summary>
 NormalBall::NormalBall()
-	: AbstractBall::AbstractBall(Vector2(320,300), Vector2(0,0), 6.f, PI / 4, 3.f) {
+	: AbstractBall::AbstractBall(Vector2(320,300), Vector2(0,0), 6.f, PI / 4, 5.f) {
 	//速度優先の為、イニシャライザ未使用
 	collider = std::make_unique<CircleCollider>(&pos, Vector2(0, 0), &vel, radius);
 	color = std::make_unique<RGBColor>(ColorCode::COLOR_YELLOW);
@@ -75,11 +75,11 @@ void NormalBall::regulateAngle()  {
 	normalizeAngle();
 	//角度の調整
 	float tmp_angle = std::fmodf(angle, PI / 2);
-	if (tmp_angle < PI / 15) {
-		angle += PI / 15;
+	if (tmp_angle < PI / 12) {
+		angle += PI / 12;
 	}
-	else if (tmp_angle > PI * 14 / 15) {
-		angle -= PI / 15;
+	else if (tmp_angle > PI * 11 / 12) {
+		angle -= PI / 12;
 	}
 }
 

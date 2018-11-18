@@ -11,6 +11,7 @@ class BlockManager {
 
 private:
 	std::vector<std::unique_ptr<AbstractBlock>> blocks;	//管理するブロックの配列
+	int count;											//経過フレーム数
 
 public:
 	BlockManager(std::unique_ptr<Collision> &_collision);

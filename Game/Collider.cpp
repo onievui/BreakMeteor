@@ -117,9 +117,10 @@ bool Collider::collisionRectRotate(RectRotateCollider &_rect_rotate1, RectRotate
 	}
 
 	//線分の交差判定
+	float dummy;
 	for (int i = 0; i < 4; ++i) {
 		for (int j = 0; j < 4; ++j) {
-			if (crossSegment(vertex1[i], vertex1[(i + 1) % 4], vertex2[j], vertex2[(j + 1) % 4])) {
+			if (collisionSegment(vertex1[i], vertex1[(i + 1) % 4], vertex2[j], vertex2[(j + 1) % 4], &dummy)) {
 				return true;
 			}
 		}
@@ -187,16 +188,16 @@ bool Collider::collisionCircleRectRotate(CircleCollider &_circle, RectRotateColl
 }
 
 /// <summary>
-/// 円と回転矩形の衝突判定（近似値）
+/// 円と回転矩形の衝突判定
 /// </summary>
-/// <param name="_circle">近似される円</param>
+/// <param name="_circle">円</param>
 /// <param name="_rect_rotate">回転矩形</param>
 /// <param name="_time">衝突までの時間</param>
 /// <param name="_ref_normal">反射面の法線</param>
 /// <returns>
 /// 衝突したかどうか
 /// </returns>
-bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, RectRotateCollider &_rect_rotate, float *_time, float *_ref_normal) {
+bool Collider::collisionCircleRectRotate(CircleCollider &_circle, RectRotateCollider &_rect_rotate, float *_time, float *_ref_normal) {
 
 	//オフセットの計算
 	Vector2 circle_pos = *_circle.pos + _circle.offset;
@@ -259,13 +260,15 @@ bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, Rec
 			if (!is_collision || t_b < t_a) {
 				*_time = t_b;
 				*_ref_normal = *_rect_rotate.angle + PI / 2;
-
 				is_collision = true;
 			}
 		}
 	}
 
 	return is_collision;
+
+	/*
+	//パターン2
 
 	//Vector2 circle_pos = Vector2::rotate(*_circle.pos + _circle.offset, -*_rect_rotate.angle, *_rect_rotate.pos + _rect_rotate.offset);
 	//Vector2 circle_vel = Vector2::rotate(*_circle.vel, -*_rect_rotate.angle);
@@ -277,12 +280,12 @@ bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, Rec
 	////回転矩形を矩形に変換
 	//RectCollider rect2(_rect_rotate.pos, _rect_rotate.offset, &rect_rotate_vel, _rect_rotate.width, _rect_rotate.height);
 
-	//DrawBoxAA(rect1.pos->x - rect1.width / 2, rect1.pos->y - rect1.height / 2, rect1.pos->x + rect1.width / 2, rect1.pos->y + rect1.height / 2, COLOR_BLUE, true);
-	//DrawBoxAA(rect2.pos->x - rect2.width / 2, rect2.pos->y - rect2.height / 2, rect2.pos->x + rect2.width / 2, rect2.pos->y + rect2.height / 2, COLOR_BLUE, true);
-	//DrawLineAA(rect1.pos->x, rect1.pos->y, rect2.pos->x, rect2.pos->y, COLOR_RED);
-	//DrawLineAA(_circle.pos->x, _circle.pos->y, _rect_rotate.pos->x, _rect_rotate.pos->y, COLOR_GREEN);
-	//if (*_rect_rotate.angle != 0)
-	//	DrawLineAA(rect1.pos->x, rect1.pos->y, rect1.pos->x + rect1.vel->x*10, rect1.pos->y + rect1.vel->y*10, COLOR_PURPLE);
+	////DrawBoxAA(rect1.pos->x - rect1.width / 2, rect1.pos->y - rect1.height / 2, rect1.pos->x + rect1.width / 2, rect1.pos->y + rect1.height / 2, COLOR_BLUE, true);
+	////DrawBoxAA(rect2.pos->x - rect2.width / 2, rect2.pos->y - rect2.height / 2, rect2.pos->x + rect2.width / 2, rect2.pos->y + rect2.height / 2, COLOR_BLUE, true);
+	////DrawLineAA(rect1.pos->x, rect1.pos->y, rect2.pos->x, rect2.pos->y, COLOR_RED);
+	////DrawLineAA(_circle.pos->x, _circle.pos->y, _rect_rotate.pos->x, _rect_rotate.pos->y, COLOR_GREEN);
+	////if (*_rect_rotate.angle != 0)
+	////	DrawLineAA(rect1.pos->x, rect1.pos->y, rect1.pos->x + rect1.vel->x*10, rect1.pos->y + rect1.vel->y*10, COLOR_PURPLE);
 
 	////当たり判定を行う
 	//if (collisionRect(rect1, rect2, _time, _ref_normal)) {
@@ -290,6 +293,7 @@ bool Collider::collisionCircleRectRotateApproximate(CircleCollider &_circle, Rec
 	//	return true;
 	//}
 	//return false;
+	*/
 }
 
 /// <summary>
@@ -308,107 +312,218 @@ bool Collider::collisionCirclePoint(CircleCollider &_circle, Vector2 &_point) {
 	return false;
 }
 
-
-
 /// <summary>
-/// 線分の交差判定
+/// 線分同士の衝突判定
 /// </summary>
 /// <param name="_p1">線分1の始点</param>
 /// <param name="_p2">線分1の終点</param>
 /// <param name="_p3">線分2の始点</param>
 /// <param name="_p4">線分2の終点</param>
+/// <param name="_time">線分1が衝突するまでの時間</param>
 /// <returns>
 /// 衝突したかどうか
 /// </returns>
-bool Collider::crossSegment(const Vector2 &_p1, const Vector2 &_p2, const Vector2 &_p3, const Vector2 &_p4) {
+bool Collider::collisionSegment(const Vector2 &_p1, const Vector2 &_p2, const Vector2 &_p3, const Vector2 &_p4, float *_time) {
 	float d = (_p2.x - _p1.x)*(_p4.y - _p3.y) - (_p2.y - _p1.y)*(_p4.x - _p3.x);
 	if (FloatEqual(d, 0.f)) {
+		*_time = 0.f;
 		return true;
 	}
 	float u = ((_p3.x - _p1.x)*(_p4.y - _p3.y) - (_p3.y - _p1.y)*(_p4.x - _p3.x)) / d;
 	float v = ((_p3.x - _p1.x)*(_p2.y - _p1.y) - (_p3.y - _p1.y)*(_p2.x - _p1.x)) / d;
 
+	*_time = -1.f;
 	if (u < 0.f || u > 1.f) {
 		return false;
 	}
 	if (v < 0.f || v > 1.f) {
 		return false;
 	}
+	*_time = u;
 	return true;
 }
 
+/// <summary>
+/// レイと円の衝突判定
+/// </summary>
+/// <param name="_ray_pos">レイの始点</param>
+/// <param name="_ray_vec">レイの方向ベクトル</param>
+/// <param name="_circle_pos">円の中心座標</param>
+/// <param name="_radius">円の半径</param>
+/// <param name="_time">衝突するまでの時間</param>
+/// <returns>
+/// 衝突したかどうか
+/// </returns>
+bool Collider::collisionRayCircle(const Vector2 &_ray_pos, const Vector2 &_ray_vec, const Vector2 &_circle_pos, const float _radius, float *_time) {
+	//エラーチェック
+	if (_radius < 0.f) {
+		return false;
+	}
+	if (FloatEqual(_ray_vec.x, 0.f) && FloatEqual(_ray_vec.y, 0.f)) {
+		return false;
+	}
+
+	//オフセットの計算
+	Vector2 ray_pos = _ray_pos - _circle_pos;
+
+	//レイの方向ベクトルの正規化
+	Vector2 ray_vec = Vector2::normalize(_ray_vec);
+
+	// 係数を算出
+	float dot = Vector2::dot(ray_pos, ray_vec);
+	float s = dot * dot - Vector2::dot(ray_pos, ray_pos) + _radius * _radius;
+	
+	//誤差の修正
+	if (FloatEqual(s, 0.f)) {
+		s = 0.f;
+	}
+	if (s < 0.0f) {
+		return false;
+	}
+
+	//衝突するまでの時間
+	*_time = -dot - sqrtf(s);
+	
+	return true;
+}
+
+/// <summary>
+/// 円と線分の衝突判定
+/// </summary>
+/// <param name="_circle">円</param>
+/// <param name="_p1">線分の始点</param>
+/// <param name="_p2">線分の終点</param>
+/// <param name="_time">衝突するまでの時間</param>
+/// <returns>
+/// 衝突したかどうか
+/// </returns>
 bool Collider::collisionCircleSegment(const CircleCollider & _circle, Vector2 & _p1, Vector2 & _p2, float * _time) {
+
+	//衝突したかの判定
+	bool is_collision = false;
+
 	//衝突までの時間
-	float t0 = 0, t1 = 0;
+	float t1, t2, t3;
 
-	//交点の座標
-	Vector2 cross_point;
+	//位置関係の把握
+	float cross = Vector2::cross(*_circle.pos - _p1, _p2 - _p1);
 
-	//線分のベクトル
-	Vector2 seg_vec = _p2 - _p1;
-
-	//X方向が0のベクトルがあるなら
-	if (FloatEqual(_circle.vel->x, 0) || FloatEqual(seg_vec.x, 0)) {
-		//両方のX方向のベクトルが0なら
-		if (FloatEqual(_circle.vel->x, 0) && FloatEqual(seg_vec.x, 0)) {
-			//衝突していない
-			*_time = -1.f;
-			return false;
-		}
-		//円のX方向ベクトルが0なら
-		if (FloatEqual(_circle.vel->x, 0)) {
-			//交点の座標を求める
-			cross_point = { _circle.pos->x,(seg_vec.y / seg_vec.x)*(_circle.pos->x - _p1.x) + _p1.y };
-			t0 = (cross_point.y - _circle.pos->y) / _circle.vel->y;
-			t1 = (cross_point.x - _p1.x) / seg_vec.x;
-		}
-		//パドルのX方向ベクトルが0なら
-		else {
-			//交点の座標を求める
-			cross_point = { _p1.x,(_circle.vel->y / _circle.vel->x)*(_p1.x - _circle.pos->x) + _circle.pos->y };
-			t0 = (cross_point.x - _circle.pos->x) / _circle.vel->x;
-			t1 = (cross_point.y - _p1.y) / seg_vec.y;
-		}
-		//交点が線分の中にあるかどうか
-		if (t0 < 0 || t0 > 1 || t1 < 0 || t1 > 1) {
-			//衝突していない
-			*_time = -1.f;
-			return false;
-		}
-		else {
-			//円側の線分が当たるまでの時間が衝突するまでの時間
-			*_time = t0;
-		}
+	//円に近い線分の計算
+	Vector2 p3, p4, translate;
+	if (cross >= 0) {
+		translate = Vector2::createWithAngleNorm(Vector2::vector2ToAngle(_p2 - _p1) - PI / 2, _circle.radius);
 	}
 	else {
-		//線分の傾きを求める
-		float a0 = _circle.vel->y / _circle.vel->x;
-		float a1 = seg_vec.y / seg_vec.x;
+		translate = Vector2::createWithAngleNorm(Vector2::vector2ToAngle(_p2 - _p1) + PI / 2, _circle.radius);
+	}
+	p3 = _p1 + translate;
+	p4 = _p2 + translate;
 
-		//傾きが平行かどうか
-		if (FloatEqual(a0, a1) || FloatEqual(a0, -a1)) {
-			//衝突していない
-			*_time = -1.f;
-			return false;
-		}
-		//交点の座標を求める
-		cross_point.x = (a0*_circle.pos->x - a1 * _p1.x + _p1.y - _circle.pos->y) / (a0 - a1);
-		cross_point.y = a0 * (cross_point.x - _circle.pos->x) + _circle.pos->y;
+	DrawLineAA(p3.x, p3.y, p4.x, p4.y, COLOR_BLUE, 5);
 
-		t0 = (cross_point.x - _circle.pos->x) / _circle.vel->x;
-		t1 = (cross_point.x - _p1.x) / seg_vec.x;
-		//交点が線分の中にあるかどうか
-		if (t0 < 0 || t0 > 1 || t1 < 0 || t1 > 1) {
-			//衝突していない
-			*_time = 1.f;
-			return false;
-		}
-		else {
-			//円側の線分が当たるまでの時間が衝突するまでの時間
-			*_time = t0;
+	//線分との衝突判定
+	if (collisionSegment(*_circle.pos, *_circle.pos + *_circle.vel, p3, p4, &t1)) {
+		is_collision = true;
+		*_time = t1;
+	}
+
+	//始点との衝突判定
+	if (collisionRayCircle(*_circle.pos, *_circle.vel, _p1, _circle.radius, &t2)) {
+		if (t2 <= 1.f && t2 >= 0.f) {
+			if (!is_collision || t2 < *_time) {
+				is_collision = true;
+				*_time = t2;
+			}
 		}
 	}
-	return true;
+
+	//終点との衝突判定
+	if (collisionRayCircle(*_circle.pos, *_circle.vel, _p2, _circle.radius, &t3)) {
+		if (t3 <= 1.f && t3 >= 0.f) {
+			if (!is_collision || t3 < *_time) {
+				is_collision = true;
+				*_time = t3;
+			}
+		}
+	}
+
+
+	return is_collision;
+
+
+
+
+	////衝突までの時間
+	//float t0 = 0, t1 = 0;
+
+	////交点の座標
+	//Vector2 cross_point;
+
+	////線分のベクトル
+	//Vector2 seg_vec = _p2 - _p1;
+
+	////X方向が0のベクトルがあるなら
+	//if (FloatEqual(_circle.vel->x, 0) || FloatEqual(seg_vec.x, 0)) {
+	//	//両方のX方向のベクトルが0なら
+	//	if (FloatEqual(_circle.vel->x, 0) && FloatEqual(seg_vec.x, 0)) {
+	//		//衝突していない
+	//		*_time = -1.f;
+	//		return false;
+	//	}
+	//	//円のX方向ベクトルが0なら
+	//	if (FloatEqual(_circle.vel->x, 0)) {
+	//		//交点の座標を求める
+	//		cross_point = { _circle.pos->x,(seg_vec.y / seg_vec.x)*(_circle.pos->x - _p1.x) + _p1.y };
+	//		t0 = (cross_point.y - _circle.pos->y) / _circle.vel->y;
+	//		t1 = (cross_point.x - _p1.x) / seg_vec.x;
+	//	}
+	//	//パドルのX方向ベクトルが0なら
+	//	else {
+	//		//交点の座標を求める
+	//		cross_point = { _p1.x,(_circle.vel->y / _circle.vel->x)*(_p1.x - _circle.pos->x) + _circle.pos->y };
+	//		t0 = (cross_point.x - _circle.pos->x) / _circle.vel->x;
+	//		t1 = (cross_point.y - _p1.y) / seg_vec.y;
+	//	}
+	//	//交点が線分の中にあるかどうか
+	//	if (t0 < 0 || t0 > 1 || t1 < 0 || t1 > 1) {
+	//		//衝突していない
+	//		*_time = -1.f;
+	//		return false;
+	//	}
+	//	else {
+	//		//円側の線分が当たるまでの時間が衝突するまでの時間
+	//		*_time = t0;
+	//	}
+	//}
+	//else {
+	//	//線分の傾きを求める
+	//	float a0 = _circle.vel->y / _circle.vel->x;
+	//	float a1 = seg_vec.y / seg_vec.x;
+
+	//	//傾きが平行かどうか
+	//	if (FloatEqual(a0, a1) || FloatEqual(a0, -a1)) {
+	//		//衝突していない
+	//		*_time = -1.f;
+	//		return false;
+	//	}
+	//	//交点の座標を求める
+	//	cross_point.x = (a0*_circle.pos->x - a1 * _p1.x + _p1.y - _circle.pos->y) / (a0 - a1);
+	//	cross_point.y = a0 * (cross_point.x - _circle.pos->x) + _circle.pos->y;
+
+	//	t0 = (cross_point.x - _circle.pos->x) / _circle.vel->x;
+	//	t1 = (cross_point.x - _p1.x) / seg_vec.x;
+	//	//交点が線分の中にあるかどうか
+	//	if (t0 < 0 || t0 > 1 || t1 < 0 || t1 > 1) {
+	//		//衝突していない
+	//		*_time = 1.f;
+	//		return false;
+	//	}
+	//	else {
+	//		//円側の線分が当たるまでの時間が衝突するまでの時間
+	//		*_time = t0;
+	//	}
+	//}
+	//return true;
 }
 
 
@@ -430,6 +545,15 @@ RectCollider::RectCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel,
 	
 }
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_pos">座標のポインタ</param>
+/// <param name="_offset">オフセット</param>
+/// <param name="_vel">速度のポインタ</param>
+/// <param name="_width">横幅</param>
+/// <param name="_height">縦幅</param>
+/// <param name="_type">当たり判定の種類</param>
 RectCollider::RectCollider(Vector2 * _pos, const Vector2 & _offset, Vector2 * _vel, const float _width, const float _height, const COLLIDER_TYPE _type)
 	: Collider(_type)
 	, pos(_pos)
@@ -439,13 +563,28 @@ RectCollider::RectCollider(Vector2 * _pos, const Vector2 & _offset, Vector2 * _v
 	, height(_height) {
 }
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_pos">座標のポインタ</param>
+/// <param name="_offset">オフセット</param>
+/// <param name="_vel">速度のポインタ</param>
+/// <param name="_width">横幅</param>
+/// <param name="_height">縦幅</param>
+/// <param name="_angle">角度のポインタ</param>
 RectRotateCollider::RectRotateCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel, const float _width, const float _height, float *_angle)
 	: RectCollider(_pos, _offset, _vel, _width, _height, COLLIDER_TYPE_RECT_ROTATE)
 	, angle(_angle) {
 
 }
 
-
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_pos">座標のポインタ</param>
+/// <param name="_offset">オフセット</param>
+/// <param name="_vel">速度のポインタ</param>
+/// <param name="_radius">半径</param>
 CircleCollider::CircleCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel, const float _radius) 
 	: Collider(COLLIDER_TYPE_CIRCLE)
 	, pos(_pos)

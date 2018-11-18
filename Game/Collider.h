@@ -29,10 +29,11 @@ public:
 	static bool collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_normal);	//‹éŒ`“¯m‚Ì“–‚½‚è”»’è
 	static bool collisionRectRotate(RectRotateCollider &_rect_rotate1, RectRotateCollider &_rect_rotate2);		//‰ñ“]‹éŒ`“¯m‚Ìd‚È‚è”»’è
 	static bool collisionCircleRectRotate(CircleCollider &_circle, RectRotateCollider &_rect_rotate);	//‰~‚Æ‰ñ“]‹éŒ`‚Ìd‚È‚è”»’è
-	static bool collisionCircleRectRotateApproximate(CircleCollider &_circle, RectRotateCollider &_rect_rotate, float *_time, float *_ref_normal);	//‰~‚Æ‰ñ“]‹éŒ`‚Ì“–‚½‚è”»’èi‹ß—j
+	static bool collisionCircleRectRotate(CircleCollider &_circle, RectRotateCollider &_rect_rotate, float *_time, float *_ref_normal);	//‰~‚Æ‰ñ“]‹éŒ`‚Ì“–‚½‚è”»’è
 	static bool collisionCirclePoint(CircleCollider &_circle, Vector2 &_point);	//‰~‚Æ“_‚Ìd‚È‚è”»’è
-	static bool crossSegment(const Vector2 &_p1, const Vector2 &_p2, const Vector2 &_p3, const Vector2 &_p4);	//ü•ª‚ÌŒğ·”»’è
-	static bool collisionCircleSegment(const CircleCollider &_circle, Vector2 &_p1, Vector2 &_p2, float *_time);	//ü•ª‚Æ“_‚ÌÕ“Ë”»’è
+	static bool collisionSegment(const Vector2 &_p1, const Vector2 &_p2, const Vector2 &_p3, const Vector2 &_p4, float *_time);	//ü•ª“¯m‚ÌÕ“Ë”»’è
+	static bool collisionRayCircle(const Vector2 &_ray_pos, const Vector2 &_ray_vec, const Vector2 &_circle_pos, const float _radius, float *_time);	//ƒŒƒC‚Æ‰~‚ÌÕ“Ë”»’è
+	static bool collisionCircleSegment(const CircleCollider &_circle, Vector2 &_p1, Vector2 &_p2, float *_time);	//ü•ª‚Æ‰~‚ÌÕ“Ë”»’è
 
 };
 

@@ -40,6 +40,10 @@ Vector2 Vector2::createWithAngleNorm(const float _angle, const float _norm) {
 	return { cos(_angle)*_norm,sin(_angle)*_norm };
 }
 
+float Vector2::vector2ToAngle(const Vector2 & _vec) {
+	return atan2f(_vec.y, _vec.x);
+}
+
 Vector2 Vector2::clamp(const Vector2 &_vec, const Vector2 &_min, const Vector2 &_max) {
 	Vector2 vec = _vec;
 

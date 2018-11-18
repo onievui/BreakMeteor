@@ -8,7 +8,7 @@
 /// コンストラクタ
 /// </summary>
 NormalBall::NormalBall()
-	: AbstractBall::AbstractBall(Vector2(320,300), Vector2(0,0), 5.f, PI / 4, 3.f) {
+	: AbstractBall::AbstractBall(Vector2(320,300), Vector2(0,0), 6.f, PI / 4, 3.f) {
 	//速度優先の為、イニシャライザ未使用
 	collider = std::make_unique<CircleCollider>(&pos, Vector2(0, 0), &vel, radius);
 	color = std::make_unique<RGBColor>(ColorCode::COLOR_YELLOW);
@@ -48,30 +48,23 @@ void NormalBall::draw() const {
 /// <param name="_hit_pos_x">反射点のX座標</param>
 void NormalBall::reflect(const float _time, const float _ref_normal, const float _hit_pos_x) {
 	pos += vel * _time;
-	//左右から当たった場合
-	//if (FloatEqual(_ref_normal, 0.f) && vel.x < 0.f || FloatEqual(_ref_normal, PI) && vel.x > 0.f) {
-	//	if (angle < PI) {
-	//		angle = PI - angle;
-	//	}
-	//	else {
-	//		angle = PI * 3 - angle;
-	//	}
-	//}
-	////上下から当たった場合
-	//else  {
-	//	angle = PI * 2 - angle;
-	//	//角度をずらす
-	//	if (!FloatEqual(_hit_pos_x, -1.f)) {
-	//		angle -= (PI / 10)*((pos.x - _hit_pos_x) / 40.f);
-	//	}
-	//}
 	float rotate = PI / 2 - _ref_normal;
 	float rotate_angle = angle + rotate;
 	if (sinf(rotate_angle) < 0) {
 		angle = PI * 2 - rotate_angle - rotate;
 	}
-	regulateAngle();
+	normalizeAngle();
 	vel = Vector2::createWithAngleNorm(angle, speed)*(1.f - _time);
+}
+
+/// <summary>
+/// 角度の正規化
+/// </summary>
+void NormalBall::normalizeAngle() {
+	angle = std::fmodf(angle, PI2);
+	if (angle < 0) {
+		angle += PI2;
+	}
 }
 
 /// <summary>
@@ -79,18 +72,15 @@ void NormalBall::reflect(const float _time, const float _ref_normal, const float
 /// </summary>
 void NormalBall::regulateAngle()  {
 	//角度の正規化
-	angle = std::fmodf(angle, PI2);
-	if (angle < 0) {
-		angle += PI2;
-	}
+	normalizeAngle();
 	//角度の調整
-	//float tmp_angle = std::fmodf(angle, PI / 2);
-	//if (tmp_angle < PI / 12) {
-	//	angle += PI / 12;
-	//}
-	//else if (tmp_angle > PI * 11 / 12) {
-	//	angle -= PI / 12;
-	//}
+	float tmp_angle = std::fmodf(angle, PI / 2);
+	if (tmp_angle < PI / 15) {
+		angle += PI / 15;
+	}
+	else if (tmp_angle > PI * 14 / 15) {
+		angle -= PI / 15;
+	}
 }
 
 /// <summary>
@@ -104,8 +94,10 @@ void NormalBall::collisionWall() {
 		else {
 			angle = PI * 3 - angle;
 		}
+		regulateAngle();
 	}
 	if (pos.y - radius <= FIELD::TOP || pos.y + radius >= FIELD::BOTTOM) {
 		angle = PI * 2 - angle;
+		regulateAngle();
 	}
 }

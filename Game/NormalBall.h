@@ -18,5 +18,6 @@ public:
 	void reflect(const float _time, const float _ref_surface, const float _hit_pos_x = -1.f) override;	//Ф╜О╦
 
 private:
+	void normalizeAngle();	//КpУxВ╠Р│ЛKЙ╗
 	void regulateAngle();	//КpУxВ╠Т▓Ро
 };

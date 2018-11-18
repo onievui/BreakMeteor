@@ -78,6 +78,7 @@ public:
 	static float dot(const Vector2 &_vec1, const Vector2 &_vec2);
 	static float cross(const Vector2 &_vec1, const Vector2 &_vec2);
 	static Vector2 createWithAngleNorm(const float _angle, const float _norm);
+	static float vector2ToAngle(const Vector2 &_vec);
 	static Vector2 clamp(const Vector2 &_vec, const Vector2 &_min, const Vector2 &_max);
 	static Vector2 rotate(const Vector2 &_vec, const float _rad, const Vector2 &_center = Vector2(0,0));
 };

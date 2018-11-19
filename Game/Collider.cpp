@@ -409,24 +409,19 @@ bool Collider::collisionSegment(const Vector2 &_p1, const Vector2 &_p2, const Ve
 	//return true;
 
 
-
-	float d = (_p2.x - _p1.x)*(_p4.y - _p3.y) - (_p2.y - _p1.y)*(_p4.x - _p3.x);
-	if (FloatEqual(d, 0.f)) {
-		*_time = 0.f;
-		return true;
-	}
-	float u = ((_p3.x - _p1.x)*(_p4.y - _p3.y) - (_p3.y - _p1.y)*(_p4.x - _p3.x)) / d;
-	float v = ((_p3.x - _p1.x)*(_p2.y - _p1.y) - (_p3.y - _p1.y)*(_p2.x - _p1.x)) / d;
-
-	*_time = -1.f;
-	if (u < 0.f || u > 1.f) {
+	float d1 = Vector2::cross(_p4 - _p3, _p1 - _p3);
+	float d2 = Vector2::cross(_p4 - _p3, _p2 - _p3);
+	float d3 = Vector2::cross(_p2 - _p1, _p3 - _p1);
+	float d4 = Vector2::cross(_p2 - _p1, _p4 - _p1);
+	if (d1*d2 > 0 || d3 * d4 > 0) {
 		return false;
 	}
-	if (v < 0.f || v > 1.f) {
-		return false;
-	}
-	*_time = u;
+	d1 = fabsf(d1);
+	d2 = fabsf(d2);
+	*_time = d1 / (d1 + d2);
+
 	return true;
+
 }
 
 /// <summary>
@@ -648,7 +643,7 @@ RectCollider::RectCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel,
 /// <param name="_width">â°ïù</param>
 /// <param name="_height">ècïù</param>
 /// <param name="_type">ìñÇΩÇËîªíËÇÃéÌóﬁ</param>
-RectCollider::RectCollider(Vector2 * _pos, const Vector2 & _offset, Vector2 * _vel, const float _width, const float _height, const COLLIDER_TYPE _type)
+RectCollider::RectCollider(Vector2 * _pos, const Vector2 & _offset, Vector2 * _vel, const float _width, const float _height, const ColliderType _type)
 	: Collider(_type)
 	, pos(_pos)
 	, offset(_offset)

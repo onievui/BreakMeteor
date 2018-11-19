@@ -62,6 +62,13 @@ void Paddle::onHitBall(const float _time) {
 }
 
 /// <summary>
+/// ブロックと衝突したときの処理
+/// </summary>
+void Paddle::onHitBlock() {
+	pos = { (int)DEFAULT_POS_X,(int)DEFAULT_POS_Y };
+}
+
+/// <summary>
 /// 当たり判定の取得
 /// </summary>
 /// <returns>当たり判定のポインタ</returns>

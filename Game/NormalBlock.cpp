@@ -32,7 +32,9 @@ NormalBlock::~NormalBlock() {
 /// 更新
 /// </summary>
 void NormalBlock::update() {
-	pos.y += 0.5f;
+	pos += vel;
+	vel = { 0,0 };
+	vel.y += 0.5f;
 }
 
 /// <summary>
@@ -54,7 +56,8 @@ void NormalBlock::draw() const {
 /// <summary>
 /// ボールと衝突したときの処理
 /// </summary>
-void NormalBlock::onHitBall() {
+void NormalBlock::onHitBall(float _time) {
+	vel *= _time;
 	hp -= 1;
 	if (hp <= 0) {
 		isValid = false;

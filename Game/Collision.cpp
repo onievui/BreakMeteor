@@ -31,21 +31,25 @@ void Collision::update() {
 	float time, ref_normal;
 	for (auto &ball : *balls) {
 		if (Collider::collisionCircleRectRotate(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_normal)) {
-					ball->reflect(time, ref_normal, paddle->get()->getPos().x);
-					paddle->get()->onHitBall(time);
+			ball->reflect(time, ref_normal, paddle->get()->getPos().x);
+			paddle->get()->onHitBall(time);
 		}
 	}
 
 	//ボールとブロックの当たり判定
 	for (auto &ball : *balls) {
-		auto it = blocks->begin();
-		auto end = blocks->end();
-		for (; it != end;) {
-			if (!it->get()->isDestroyed() && Collider::collisionCircleRectRotate(*ball->getCollider(), *it->get()->getCollider(), &time, &ref_normal)) {
+		for (auto &block : *blocks) {
+			if (!block->isDestroyed() && Collider::collisionCircleRectRotate(*ball->getCollider(), *block->getCollider(), &time, &ref_normal)) {
 				ball->reflect(time, ref_normal);
-				it->get()->onHitBall();
+				block->onHitBall(time);
 			}
-			++it;
+		}
+	}
+
+	//パドルとブロックの当たり判定
+	for (auto &block : *blocks) {
+		if (!block->isDestroyed() && Collider::collisionRectRotate(*paddle->get()->getCollider(), *block->getCollider())) {
+			paddle->get()->onHitBlock();
 		}
 	}
 }

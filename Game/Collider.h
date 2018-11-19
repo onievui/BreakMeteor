@@ -3,7 +3,7 @@
 
 
 //コライダーの種類
-enum COLLIDER_TYPE {
+enum ColliderType {
 	COLLIDER_TYPE_NONE,
 	COLLIDER_TYPE_RECT,
 	COLLIDER_TYPE_RECT_ROTATE,
@@ -20,10 +20,10 @@ class CircleCollider;
 class Collider {
 
 public:
-	const COLLIDER_TYPE type;	//コライダーの種類
+	const ColliderType type;	//コライダーの種類
 
 public:
-	Collider(const COLLIDER_TYPE _type) : type(_type){}
+	Collider(const ColliderType _type) : type(_type){}
 	virtual ~Collider() = default;
 
 	static bool collisionRect(RectCollider &_rect1, RectCollider &_rect2, float *_time, float *_ref_normal);	//矩形同士の当たり判定
@@ -52,7 +52,7 @@ public:
 	virtual ~RectCollider() = default;
 
 protected:
-	RectCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel, const float _width, const float _height, const COLLIDER_TYPE _type);
+	RectCollider(Vector2 *_pos, const Vector2 &_offset, Vector2 *_vel, const float _width, const float _height, const ColliderType _type);
 
 };
 

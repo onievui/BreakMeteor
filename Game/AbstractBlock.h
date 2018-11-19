@@ -25,7 +25,7 @@ public:
 
 	virtual void update() = 0;			        //更新
 	virtual void draw() const = 0;		        //描画
-	virtual void onHitBall() = 0;		        //ボールとの衝突処理
+	virtual void onHitBall(float _time) = 0;	//ボールとの衝突処理
 	RectRotateCollider* getCollider() const;	//当たり判定の取得
 	bool isDestroyed() const;			        //存在するかどうか
 };

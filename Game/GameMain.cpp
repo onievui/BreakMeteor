@@ -15,6 +15,7 @@
 #include "PlayScene.h"
 #include "ResultScene.h"
 #include "Pad.h"
+#include "ShareDataManager.h"
 
 
 
@@ -56,6 +57,7 @@ void Game::initialize(void) {
 	addScene(SCENE_RESULT, ResultScene::create);
 	nowScene = sceneFactoryMethods[SCENE_LOGO](this);
 	nextScene = SCENE_NONE;
+	ShareDataManager::getIns()->initialize();
 }
 
 

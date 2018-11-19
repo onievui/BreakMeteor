@@ -1,5 +1,5 @@
 #include "PlayScene.h"
-
+#include "ShareDataManager.h"
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -37,7 +37,8 @@ void PlayScene::update() {
 	collision->update();
 
 	if (!paddle->checkIsAlive()) {
-
+		ShareDataManager::getIns()->setScore(paddle->getScore());
+		implRequestScene->requestScene(SCENE_RESULT);
 	}
 }
 

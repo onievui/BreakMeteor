@@ -122,6 +122,10 @@ void Paddle::addScore(const int _score) {
 	score += _score;
 }
 
+int Paddle::getScore() {
+	return score;
+}
+
 bool Paddle::checkIsAlive() const {
 	return isAlive;
 }

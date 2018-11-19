@@ -42,6 +42,7 @@ public:
 	void rotate();								  //回転させる
 
 	void addScore(const int _score);              //スコアの追加
+	int getScore();								  //スコアの取得
 	bool checkIsAlive() const;					  //ブロックと衝突していないかの確認
 
 private:

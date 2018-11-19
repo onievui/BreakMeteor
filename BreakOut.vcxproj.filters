@@ -154,6 +154,9 @@
     <ClCompile Include="Game\ResultScene.cpp">
       <Filter>ゲーム\シーン</Filter>
     </ClCompile>
+    <ClCompile Include="Game\RotateBlock.cpp">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
   <ItemGroup>
@@ -267,6 +270,9 @@
     </ClInclude>
     <ClInclude Include="Game\ResultScene.h">
       <Filter>ゲーム\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RotateBlock.h">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
     </ClInclude>
   </ItemGroup>
   <!-- リソースファイル -->

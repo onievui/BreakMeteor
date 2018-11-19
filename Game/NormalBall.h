@@ -15,7 +15,7 @@ public:
 
 	void update() override;	                                                                            //XV
 	void draw() const override;                                                                         //•`‰æ
-	void reflect(const float _time, const float _ref_surface, const float _hit_pos_x = -1.f) override;	//”½Ë
+	void reflect(const float _time, const float _ref_normal) override;	//”½Ë
 
 private:
 	void normalizeAngle();	//Šp“x‚Ì³‹K‰»

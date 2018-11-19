@@ -1,5 +1,7 @@
 #include "ResultScene.h"
 #include "Pad.h"
+#include "ShareDataManager.h"
+
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -39,6 +41,7 @@ void ResultScene::update() {
 /// </summary>
 void ResultScene::render() {
 	DrawFormatString(10, 10, COLOR_WHITE, "RESULT press Space");
+	DrawFormatString(10, 50, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
 }
 
 /// <summary>

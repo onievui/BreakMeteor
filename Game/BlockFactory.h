@@ -5,7 +5,7 @@
 
 
 //ブロックの種類
-enum BLOCK_TYPE {
+enum BlockType {
 	NONE,
 	NORMAL_RED,
 	NORMAL_GREEN,
@@ -13,6 +13,7 @@ enum BLOCK_TYPE {
 	NORMAL_PINK,
 	NORMAL_AQUA,
 	NORMAL_GRAY_HP2,
+	ROTATE_RED,
 	TYPE_NUM,
 };
 
@@ -24,6 +25,6 @@ public:
 	BlockFactroy() = default;
 	~BlockFactroy() = default;
 
-	static std::unique_ptr<AbstractBlock> createBlock(const Vector2 &_pos, const BLOCK_TYPE _type);	//ブロックの生成
+	static std::unique_ptr<AbstractBlock> createBlock(const Vector2 &_pos, const BlockType _type);	//ブロックの生成
 
 };

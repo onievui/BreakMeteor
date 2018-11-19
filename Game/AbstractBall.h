@@ -23,6 +23,6 @@ public:
 
 	virtual void update() = 0;												                            //XV
 	virtual void draw() const = 0;											                            //•`‰æ
-	virtual void reflect(const float _time, const float _ref_angle, const float _hit_pos_x = -1.f) = 0;	//”½Ë
+	virtual void reflect(const float _time, const float _ref_angle) = 0;	//”½Ë
 	CircleCollider* getCollider() const;										                        //“–‚½‚è”»’è‚Ìæ“¾
 };

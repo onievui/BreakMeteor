@@ -2,10 +2,8 @@
 
 #include "BlockManager.h"
 #include "BlockFactory.h"
-#include "StageData.h"
+#include "Field.h"
 
-
-using namespace StageData;
 
 
 /// <summary>
@@ -21,25 +19,6 @@ BlockManager::BlockManager(std::unique_ptr<Collision> &_collision) {
 	//ÉJÉEÉìÉgÇÃèâä˙âª
 	count = 0;
 
-	//Vector2 pos;
-	////int STAGE_DATA2[][8] = STAGE_DATA2;
-	//int row = sizeof(STAGE_DATA2) / sizeof(STAGE_DATA2[0]);
-	//int column = sizeof(STAGE_DATA2[0]) / sizeof(STAGE_DATA2[0][0]);
-	//for (int i = 0; i < row*column; ++i) {
-	//	BLOCK_TYPE type = (BLOCK_TYPE)STAGE_DATA2[i / column][i % column];
-	//	pos.x = 40.0f + (i % column) * 80;
-	//	pos.y = 40.0f + (i / column) * 20;
-	//	//ãÛîíÇ»ÇÁîÚÇŒÇ∑
-	//	if (type == BLOCK_TYPE::NONE) {
-	//		continue;
-	//	}
-	//	auto block = BlockFactroy::createBlock(pos, type);
-	//	//ê∂ê¨Ç…é∏îsÇµÇΩÇÁîÚÇŒÇ∑
-	//	if (block == nullptr) {
-	//		continue;
-	//	}
-	//	blocks.emplace_back(std::move(block));
-	//}
 }
 
 /// <summary>
@@ -58,9 +37,9 @@ void BlockManager::update() {
 		block->update();
 	}
 
-	if (count % 300 == 0) {
+	if (count % 400 == 0) {
 		Vector2 pos;
-		BLOCK_TYPE type = BLOCK_TYPE(GetRand(5) + 1);
+		BlockType type = BlockType(GetRand(5) + 1);
 		for (int i = 0; i < 5; ++i) {
 			pos.x = 56.f + i * 80.f;
 			pos.y = -10.f;
@@ -69,6 +48,17 @@ void BlockManager::update() {
 			if (block == nullptr) {
 				continue;
 			}
+			blocks.emplace_back(std::move(block));
+		}
+	}
+
+	if (count % 150 == 0) {
+		Vector2 pos;
+		BlockType type = BlockType::ROTATE_RED;
+		pos.x = float(FIELD::WIDTH*(GetRand(3) + 1) / 5 + FIELD::LEFT);
+		pos.y = -10.f;
+		auto block = BlockFactroy::createBlock(pos, type);
+		if (block != nullptr) {
 			blocks.emplace_back(std::move(block));
 		}
 	}

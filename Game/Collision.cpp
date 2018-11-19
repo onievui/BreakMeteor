@@ -31,7 +31,7 @@ void Collision::update() {
 	float time, ref_normal;
 	for (auto &ball : *balls) {
 		if (Collider::collisionCircleRectRotate(*ball->getCollider(), *paddle->get()->getCollider(), &time, &ref_normal)) {
-			ball->reflect(time, ref_normal, paddle->get()->getPos().x);
+			ball->reflect(time, ref_normal);
 			paddle->get()->onHitBall(time);
 		}
 	}

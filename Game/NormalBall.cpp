@@ -45,8 +45,7 @@ void NormalBall::draw() const {
 /// </summary>
 /// <param name="_time">当たるまでの時間</param>
 /// <param name="_ref_normal">反射点の法線</param>
-/// <param name="_hit_pos_x">反射点のX座標</param>
-void NormalBall::reflect(const float _time, const float _ref_normal, const float _hit_pos_x) {
+void NormalBall::reflect(const float _time, const float _ref_normal) {
 	pos += vel * _time;
 	float rotate = PI / 2 - _ref_normal;
 	float rotate_angle = angle + rotate;

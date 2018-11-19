@@ -106,6 +106,7 @@
     <ClCompile Include="Game\Pad.cpp" />
     <ClCompile Include="Game\PlayScene.cpp" />
     <ClCompile Include="Game\ResultScene.cpp" />
+    <ClCompile Include="Game\RotateBlock.cpp" />
     <ClCompile Include="Game\ShareDataManager.cpp" />
     <ClCompile Include="Game\TitleScene.cpp" />
     <ClCompile Include="Game\Vector2.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Game\PlayScene.h" />
     <ClInclude Include="Game\RequestSceneListener.h" />
     <ClInclude Include="Game\ResultScene.h" />
+    <ClInclude Include="Game\RotateBlock.h" />
     <ClInclude Include="Game\SceneID.h" />
     <ClInclude Include="Game\ShareDataManager.h" />
     <ClInclude Include="Game\Singleton.h" />

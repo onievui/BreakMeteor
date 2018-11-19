@@ -2,7 +2,7 @@
 
 #include "BlockFactory.h"
 #include "NormalBlock.h"
-
+#include "RotateBlock.h"
 
 /// <summary>
 /// ブロックの生成
@@ -13,9 +13,9 @@
 /// 成功：生成したブロック
 /// 失敗：nullptr
 /// </returns>
-std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, const BLOCK_TYPE _type) {
+std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, const BlockType _type) {
 	//エラーチェック
-	if (_type <= BLOCK_TYPE::NONE || _type >= BLOCK_TYPE::TYPE_NUM) {
+	if (_type <= BlockType::NONE || _type >= BlockType::TYPE_NUM) {
 		MessageBox(NULL, "ブロックの生成の呼び出しで不正な値が渡されました", "", MB_OK);
 		return nullptr;
 	}
@@ -47,6 +47,10 @@ std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, co
 	case NORMAL_GRAY_HP2:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_GRAY);
 		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 2, 150, color);
+		break;
+	case ROTATE_RED:
+		color = std::make_unique<RGBColor>(ColorCode::COLOR_RED);
+		block = std::make_unique<RotateBlock>(_pos, 80.f, 80.f, 1, 150, color);
 		break;
 	default:
 		MessageBox(NULL, "ブロックの生成で不正な値が渡されました", "", MB_OK);

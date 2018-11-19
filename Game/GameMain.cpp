@@ -10,7 +10,10 @@
 
 // ヘッダファイルの読み込み ================================================
 #include "GameMain.h"
+#include "LogoScene.h"
+#include "TitleScene.h"
 #include "PlayScene.h"
+#include "ResultScene.h"
 #include "Pad.h"
 
 
@@ -47,11 +50,13 @@ Game::~Game() {
 //! @return なし
 //----------------------------------------------------------------------
 void Game::initialize(void) {
+	addScene(SCENE_LOGO, LogoScene::create);
+	addScene(SCENE_TITLE, TitleScene::create);
 	addScene(SCENE_PLAY, PlayScene::create);
-	nowScene = sceneFactoryMethods[SCENE_PLAY](this);
+	addScene(SCENE_RESULT, ResultScene::create);
+	nowScene = sceneFactoryMethods[SCENE_LOGO](this);
 	nextScene = SCENE_NONE;
 }
-
 
 
 //----------------------------------------------------------------------

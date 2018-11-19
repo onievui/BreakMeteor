@@ -15,6 +15,7 @@ protected:
 	float width;                                  //横幅
 	float height;                                 //縦幅
 	int hp;			                              //耐久力
+	int score;									  //スコア
 	bool isValid;							      //存在するか
 	std::unique_ptr<Color> color;	              //色
 	std::unique_ptr<RectRotateCollider> collider; //当たり判定
@@ -27,5 +28,6 @@ public:
 	virtual void draw() const = 0;		        //描画
 	virtual void onHitBall(float _time) = 0;	//ボールとの衝突処理
 	RectRotateCollider* getCollider() const;	//当たり判定の取得
+	virtual int getScore() const = 0;			//スコアの取得
 	bool isDestroyed() const;			        //存在するかどうか
 };

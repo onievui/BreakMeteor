@@ -142,6 +142,18 @@
     <ClCompile Include="Game\AbstractBlock.cpp">
       <Filter>ゲーム\オブジェクト\ブロック</Filter>
     </ClCompile>
+    <ClCompile Include="Game\LogoScene.cpp">
+      <Filter>ゲーム\シーン</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ShareDataManager.cpp">
+      <Filter>ゲーム\シーン</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene.cpp">
+      <Filter>ゲーム\シーン</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene.cpp">
+      <Filter>ゲーム\シーン</Filter>
+    </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
   <ItemGroup>
@@ -243,6 +255,18 @@
     </ClInclude>
     <ClInclude Include="Game\Collision.h">
       <Filter>ゲーム\オブジェクト</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\LogoScene.h">
+      <Filter>ゲーム\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ShareDataManager.h">
+      <Filter>ゲーム\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene.h">
+      <Filter>ゲーム\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene.h">
+      <Filter>ゲーム\シーン</Filter>
     </ClInclude>
   </ItemGroup>
   <!-- リソースファイル -->

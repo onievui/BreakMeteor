@@ -19,6 +19,8 @@ private:
 	float width;		                            //横幅
 	float height;		                            //縦幅
 	float speed;		                            //移動速度
+	int score;										//獲得スコア
+	bool isAlive;									//生きているかどうか
 	std::unique_ptr<RectRotateCollider> collider;	//当たり判定
 	std::unique_ptr<Color> color;                   //パドルの色
 
@@ -29,13 +31,18 @@ public:
 	void initialize();                            //初期化
 	void update();                                //更新
 	void draw() const;                            //描画
+
 	void onHitBall(const float _time);		      //ボールと衝突したときの処理
 	void onHitBlock();							  //ブロックと衝突したときの処理
+
 	RectRotateCollider* getCollider() const;      //当たり判定の取得
 	const Vector2& getPos() const;	              //座標の取得
 	float getRotatedAngle() const;	              //回転後の角度の取得
 	void cancelMove();							  //移動を中止する
 	void rotate();								  //回転させる
+
+	void addScore(const int _score);              //スコアの追加
+	bool checkIsAlive() const;					  //ブロックと衝突していないかの確認
 
 private:
 	void move();	//パドルの移動

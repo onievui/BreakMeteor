@@ -26,6 +26,8 @@ void Paddle::initialize() {
 	width  = 80;
 	height = 16;
 	speed  = 5;
+	score = 0;
+	isAlive = true;
 	collider = std::make_unique<RectRotateCollider>(&pos, Vector2(0, 0), &vel, width, height, &angle);
 	color = std::make_unique<RGBColor>(ColorCode::COLOR_WHITE);
 }
@@ -51,6 +53,7 @@ void Paddle::draw() const {
 	}
 	
 	DrawQuadrangleAA(vertex[0].x, vertex[0].y, vertex[1].x, vertex[1].y, vertex[2].x, vertex[2].y, vertex[3].x, vertex[3].y, color->getColor(), true);
+	DrawFormatString(20, 20, COLOR_WHITE, "SCORE : %d", score);
 }
 
 /// <summary>
@@ -65,7 +68,7 @@ void Paddle::onHitBall(const float _time) {
 /// ブロックと衝突したときの処理
 /// </summary>
 void Paddle::onHitBlock() {
-	pos = { (int)DEFAULT_POS_X,(int)DEFAULT_POS_Y };
+	isAlive = false;
 }
 
 /// <summary>
@@ -109,6 +112,18 @@ void Paddle::cancelMove() {
 /// </summary>
 void Paddle::rotate() {
 	angle += rotateVel;
+}
+
+/// <summary>
+/// スコアの追加
+/// </summary>
+/// <param name="_score">スコア</param>
+void Paddle::addScore(const int _score) {
+	score += _score;
+}
+
+bool Paddle::checkIsAlive() const {
+	return isAlive;
 }
 
 

@@ -42,6 +42,7 @@ void Collision::update() {
 			if (!block->isDestroyed() && Collider::collisionCircleRectRotate(*ball->getCollider(), *block->getCollider(), &time, &ref_normal)) {
 				ball->reflect(time, ref_normal);
 				block->onHitBall(time);
+				paddle->get()->addScore(block->getScore());
 			}
 		}
 	}

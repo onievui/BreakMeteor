@@ -8,14 +8,16 @@
 /// <param name="_width">横幅</param>
 /// <param name="_height">縦幅</param>
 /// <param name="_hp">耐久度</param>
+/// /// <param name="_score">スコア</param>
 /// <param name="_color">色</param>
-NormalBlock::NormalBlock(const Vector2 &_pos, const float _width, const float _height, const int _hp,std::unique_ptr<Color> &_color) {
+NormalBlock::NormalBlock(const Vector2 &_pos, const float _width, const float _height, const int _hp, const int _score, std::unique_ptr<Color> &_color) {
 	pos      = _pos;
 	vel      = Vector2(0, 0);
 	angle    = 0;
 	width    = _width;
 	height   = _height;
 	hp       = _hp;
+	score    = _score;
 	isValid  = true;
 	color    = std::move(_color);
 	collider = std::make_unique<RectRotateCollider>(&pos, Vector2(0, 0), &vel, width, height, &angle);
@@ -62,4 +64,11 @@ void NormalBlock::onHitBall(float _time) {
 	if (hp <= 0) {
 		isValid = false;
 	}
+}
+
+int NormalBlock::getScore() const {
+	if (!isValid) {
+		return score;
+	}
+	return 0;
 }

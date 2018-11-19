@@ -35,6 +35,10 @@ void PlayScene::update() {
 	ballManager->update();
 	blockManager->update();
 	collision->update();
+
+	if (!paddle->checkIsAlive()) {
+
+	}
 }
 
 
@@ -42,9 +46,9 @@ void PlayScene::update() {
 /// ƒV[ƒ“‚Ì•`‰æ
 /// </summary>
 void PlayScene::render() {
-	paddle->draw();
 	ballManager->render();
 	blockManager->render();
+	paddle->draw();
 }
 
 /// <summary>

@@ -26,27 +26,27 @@ std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, co
 	switch (_type) {
 	case NORMAL_RED:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_RED);
-		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, 100, color);
 		break;
 	case NORMAL_GREEN:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_LIME);
-		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, 100, color);
 		break;
 	case NORMAL_BLUE:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_BLUE);
-		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, 100, color);
 		break;
 	case NORMAL_PINK:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_FUCHSIA);
-		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, 100, color);
 		break;
 	case NORMAL_AQUA:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_AQUA);
-		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, color);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 1, 100, color);
 		break;
 	case NORMAL_GRAY_HP2:
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_GRAY);
-		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 2, color);
+		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 2, 150, color);
 		break;
 	default:
 		MessageBox(NULL, "ブロックの生成で不正な値が渡されました", "", MB_OK);

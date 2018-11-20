@@ -6,6 +6,9 @@
 //回転ブロッククラス
 class RotateBlock : public AbstractBlock {
 
+private:
+	float rotateSpeed;			//回転スピード
+
 public:
 	RotateBlock(const Vector2 &_pos, const float _width, const float _height, const int _hp, const int _score, std::unique_ptr<Color> &_color);
 	~RotateBlock();

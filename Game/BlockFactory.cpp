@@ -2,6 +2,7 @@
 
 #include "BlockFactory.h"
 #include "NormalBlock.h"
+#include "MoveBlock.h"
 #include "RotateBlock.h"
 
 /// <summary>
@@ -48,9 +49,13 @@ std::unique_ptr<AbstractBlock> BlockFactroy::createBlock(const Vector2 &_pos, co
 		color = std::make_unique<RGBColor>(ColorCode::COLOR_GRAY);
 		block = std::make_unique<NormalBlock>(_pos, 80.f, 20.f, 2, 150, color);
 		break;
-	case ROTATE_RED:
-		color = std::make_unique<RGBColor>(ColorCode::COLOR_RED);
-		block = std::make_unique<RotateBlock>(_pos, 80.f, 80.f, 1, 150, color);
+	case MOVE_GREEN:
+		color = std::make_unique<RGBColor>(ColorCode::COLOR_GREEN);
+		block = std::make_unique<MoveBlock>(_pos, 100.f, 20.f, 1, 150, color);
+		break;
+	case ROTATE_BLUE:
+		color = std::make_unique<RGBColor>(ColorCode::COLOR_BLUE);
+		block = std::make_unique<RotateBlock>(_pos, 80.f, 80.f, 1, 200, color);
 		break;
 	default:
 		MessageBox(NULL, "ブロックの生成で不正な値が渡されました", "", MB_OK);

@@ -157,6 +157,9 @@
     <ClCompile Include="Game\RotateBlock.cpp">
       <Filter>ゲーム\オブジェクト\ブロック</Filter>
     </ClCompile>
+    <ClCompile Include="Game\MoveBlock.cpp">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
   <ItemGroup>
@@ -272,6 +275,9 @@
       <Filter>ゲーム\シーン</Filter>
     </ClInclude>
     <ClInclude Include="Game\RotateBlock.h">
+      <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MoveBlock.h">
       <Filter>ゲーム\オブジェクト\ブロック</Filter>
     </ClInclude>
   </ItemGroup>

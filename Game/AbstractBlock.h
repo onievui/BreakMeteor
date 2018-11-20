@@ -22,6 +22,7 @@ protected:
 
 public:
 	AbstractBlock() = default;
+	AbstractBlock(const Vector2 &_pos, const float _width, const float _height, const int _hp, const int _score);
 	virtual ~AbstractBlock() = default;
 
 	virtual void update() = 0;			        //çXêV

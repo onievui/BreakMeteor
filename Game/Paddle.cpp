@@ -80,7 +80,7 @@ RectRotateCollider* Paddle::getCollider() const {
 }
 
 /// <summary>
-/// ÀˆÀ•U‚Ìæ“¾
+/// À•W‚Ìæ“¾
 /// </summary>
 /// <returns>
 /// À•W

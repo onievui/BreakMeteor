@@ -108,12 +108,10 @@ bool Collider::collisionRectRotate(RectRotateCollider &_rect_rotate1, RectRotate
 		float y = _rect_rotate1.height / 2.f;
 		int xc = (i == 0 || i == 3) ? -1 : 1;
 		int yc = (i < 2) ? -1 : 1;
-		vertex1[i].x = x * xc*cosf(*_rect_rotate1.angle) - y * yc*sinf(*_rect_rotate1.angle) + pos1.x;
-		vertex1[i].y = x * xc*sinf(*_rect_rotate1.angle) + y * yc*cosf(*_rect_rotate1.angle) + pos1.y;
+		vertex1[i] = Vector2::rotate(Vector2(x*xc, y*yc), *_rect_rotate1.angle) + pos1;
 		x = _rect_rotate2.width / 2.f;
 		y = _rect_rotate2.height / 2.f;
-		vertex2[i].x = x * xc*cosf(*_rect_rotate2.angle) - y * yc*sinf(*_rect_rotate2.angle) + pos2.x;
-		vertex2[i].y = x * xc*sinf(*_rect_rotate2.angle) + y * yc*cosf(*_rect_rotate2.angle) + pos2.y;
+		vertex2[i] = Vector2::rotate(Vector2(x*xc, y*yc), *_rect_rotate2.angle) + pos2;
 	}
 
 	//線分の交差判定
@@ -335,11 +333,22 @@ bool Collider::collisionCirclePoint(CircleCollider &_circle, Vector2 &_point) {
 /// </returns>
 bool Collider::collisionSegment(const Vector2 &_p1, const Vector2 &_p2, const Vector2 &_p3, const Vector2 &_p4, float *_time) {
 
+	//交差判定
 	float d1 = Vector2::cross(_p4 - _p3, _p1 - _p3);
 	float d2 = Vector2::cross(_p4 - _p3, _p2 - _p3);
 	float d3 = Vector2::cross(_p2 - _p1, _p3 - _p1);
 	float d4 = Vector2::cross(_p2 - _p1, _p4 - _p1);
-	if (d1*d2 > 0 || d3 * d4 > 0) {
+	if (d1*d2 > 0.f || d3 * d4 > 0.f) {
+		return false;
+	}
+	//線分が一直線上にあるかの確認
+	if (FloatEqual(d1, 0.f) && FloatEqual(d2, 0.f) && FloatEqual(d3, 0.f) && FloatEqual(d4, 0.f)) {
+		float dot1 = Vector2::dot(_p1 - _p3, _p2 - _p3);
+		float dot2 = Vector2::dot(_p1 - _p4, _p2 - _p4);
+		if (dot1 <= 0.f || dot2 <= 0.f) {
+			*_time = 0.f;
+			return true;
+		}
 		return false;
 	}
 	d1 = fabsf(d1);
@@ -426,7 +435,7 @@ bool Collider::collisionCircleSegment(const CircleCollider & _circle, Vector2 & 
 	p3 = _p1 + translate;
 	p4 = _p2 + translate;
 
-	DrawLineAA(p3.x, p3.y, p4.x, p4.y, COLOR_BLUE, 3);
+	//DrawLineAA(p3.x, p3.y, p4.x, p4.y, COLOR_BLUE, 3);
 
 	//バグ対策の線分との衝突判定
 	if (collisionSegment(*_circle.pos, *_circle.pos + *_circle.vel, _p1, _p2, &t0)) {

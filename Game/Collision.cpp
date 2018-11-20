@@ -11,7 +11,6 @@ Collision::Collision() {
 /// 更新
 /// </summary>
 void Collision::update() {
-
 	//パドルの移動制限
 	RectRotateCollider moved_paddle = *paddle->get()->getCollider();
 	Vector2 paddle_moved_pos = *moved_paddle.pos + *moved_paddle.vel;

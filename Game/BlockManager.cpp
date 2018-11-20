@@ -47,7 +47,7 @@ void BlockManager::update() {
 	}
 
 	//ノーマルブロックの生成
-	if (count % (500 - 50 * (std::min)(level, 6)) == 0) {
+	if (count % (510 - 29 * (std::min)(level, 11)) == 0) {
 		Vector2 pos;
 		BlockType type = BlockType(GetRand(5) + 1);
 		for (int i = 0; i < 5; ++i) {
@@ -62,10 +62,10 @@ void BlockManager::update() {
 		}
 	}
 
-	//回転ブロックの生成
-	if (level > 1 && count % (300 - 20 * (std::min)(level - 2, 5)) == 0) {
+	//移動ブロックの生成
+	if (level > 1 && count % (490 - 41 * (std::min)(level - 2, 8)) == 0) {
 		Vector2 pos;
-		BlockType type = BlockType::ROTATE_RED;
+		BlockType type = BlockType::MOVE_GREEN;
 		pos.x = float(FIELD::WIDTH * 3 / 5 * GetRand(10000) / 10000 + (FIELD::LEFT + FIELD::WIDTH / 5));
 		pos.y = -10.f;
 		auto block = BlockFactroy::createBlock(pos, type);
@@ -74,6 +74,17 @@ void BlockManager::update() {
 		}
 	}
 
+	//回転ブロックの生成
+	if (level > 3 && count % (370 - 11 * (std::min)(level - 4, 15)) == 0) {
+		Vector2 pos;
+		BlockType type = BlockType::ROTATE_BLUE;
+		pos.x = float(FIELD::WIDTH * 3 / 5 * GetRand(10000) / 10000 + (FIELD::LEFT + FIELD::WIDTH / 5));
+		pos.y = -10.f;
+		auto block = BlockFactroy::createBlock(pos, type);
+		if (block != nullptr) {
+			blocks.emplace_back(std::move(block));
+		}
+	}
 
 	//難易度の調整
 	if (count % LEVEL_UP_SPEED == 0) {

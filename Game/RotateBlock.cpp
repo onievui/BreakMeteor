@@ -35,7 +35,7 @@ RotateBlock::~RotateBlock() {
 /// </summary>
 void RotateBlock::update() {
 	pos += vel;
-	angle += PI / 45;
+	angle += PI / 60;
 	vel = { 0,0 };
 	vel.y += 0.8f;
 }

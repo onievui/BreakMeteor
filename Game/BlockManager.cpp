@@ -3,7 +3,11 @@
 #include "BlockManager.h"
 #include "BlockFactory.h"
 #include "Field.h"
+#include <algorithm>
 
+
+
+const int BlockManager::LEVEL_UP_SPEED = 1200;
 
 
 /// <summary>
@@ -19,6 +23,9 @@ BlockManager::BlockManager(std::unique_ptr<Collision> &_collision) {
 	//カウントの初期化
 	count = 0;
 
+	//レベルの初期化
+	level = 0;
+
 }
 
 /// <summary>
@@ -32,12 +39,15 @@ BlockManager::~BlockManager() {
 /// 更新
 /// </summary>
 void BlockManager::update() {
+	//ブロックが壊れていないか確認
 	destroyCheck();
+	//ブロックの更新
 	for (const auto &block : blocks) {
 		block->update();
 	}
 
-	if (count % 400 == 0) {
+	//ノーマルブロックの生成
+	if (count % (500 - 50 * (std::min)(level, 6)) == 0) {
 		Vector2 pos;
 		BlockType type = BlockType(GetRand(5) + 1);
 		for (int i = 0; i < 5; ++i) {
@@ -52,15 +62,22 @@ void BlockManager::update() {
 		}
 	}
 
-	if (count % 150 == 0) {
+	//回転ブロックの生成
+	if (level > 1 && count % (300 - 20 * (std::min)(level - 2, 5)) == 0) {
 		Vector2 pos;
 		BlockType type = BlockType::ROTATE_RED;
-		pos.x = float(FIELD::WIDTH*(GetRand(3) + 1) / 5 + FIELD::LEFT);
+		pos.x = float(FIELD::WIDTH * 3 / 5 * GetRand(10000) / 10000 + (FIELD::LEFT + FIELD::WIDTH / 5));
 		pos.y = -10.f;
 		auto block = BlockFactroy::createBlock(pos, type);
 		if (block != nullptr) {
 			blocks.emplace_back(std::move(block));
 		}
+	}
+
+
+	//難易度の調整
+	if (count % LEVEL_UP_SPEED == 0) {
+		level++;
 	}
 
 	++count;

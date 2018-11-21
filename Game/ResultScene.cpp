@@ -1,6 +1,7 @@
 #include "ResultScene.h"
 #include "Pad.h"
 #include "ShareDataManager.h"
+#include "GameMain.h"
 
 
 /// <summary>
@@ -23,7 +24,7 @@ ResultScene::~ResultScene() {
 /// シーンの初期化
 /// </summary>
 void ResultScene::initialize() {
-
+	
 }
 
 /// <summary>
@@ -33,6 +34,7 @@ void ResultScene::update() {
 	if (Pad::getIns()->isDown(PadCode::SPACE)) {
 		implRequestScene->requestScene(SCENE_TITLE);
 	}
+	
 }
 
 
@@ -40,15 +42,17 @@ void ResultScene::update() {
 /// シーンの描画
 /// </summary>
 void ResultScene::render() {
-	DrawFormatString(10, 10, COLOR_WHITE, "RESULT press Space");
-	DrawFormatString(10, 50, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
+	SetFontSize(30);
+	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("SCORE : %d", ShareDataManager::getIns()->getScore()) / 2.f, 
+		SCREEN_CENTER_Y - 100.f, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
+	SetFontSize(20);
+	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("press Z key") / 2.f, SCREEN_CENTER_Y + 100.0f, COLOR_WHITE, "press Z key");
 }
 
 /// <summary>
 /// シーンの終了処理
 /// </summary>
 void ResultScene::finalize() {
-	
 }
 
 /// <summary>

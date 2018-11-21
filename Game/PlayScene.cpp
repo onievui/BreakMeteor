@@ -25,6 +25,7 @@ void PlayScene::initialize() {
 	collision->setPaddle(&paddle);
 	ballManager = std::make_unique<BallManager>(collision);
 	blockManager = std::make_unique<BlockManager>(collision);
+	SetFontSize(20);
 }
 
 /// <summary>

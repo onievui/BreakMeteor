@@ -30,7 +30,7 @@
 
 
 // 型の定義 ================================================================
-typedef int HGRP;    // グラフィックハンドル     
-typedef int HSND;    // サウンドハンドル
-typedef int HFNT;    // フォントハンドル
-typedef int HNET;    // ネットワークハンドル 
+using HGRP = int;    // グラフィックハンドル     
+using HSND = int;    // サウンドハンドル
+using HFNT = int;    // フォントハンドル
+using HNET = int;    // ネットワークハンドル 

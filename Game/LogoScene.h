@@ -8,6 +8,9 @@
 class LogoScene : public AbstractScene {
 
 private:
+	int state;	//ó‘Ô
+	int count;	//Œo‰ßƒtƒŒ[ƒ€”
+
 
 public:
 	LogoScene(RequestSceneListener *_impl);

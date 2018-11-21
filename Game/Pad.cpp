@@ -154,7 +154,7 @@ bool Pad::isUp(const PadCode _id) const {
 /// </returns>
 bool Pad::isDownAny() const {
 	for (auto &pad_state : padStatePress) {
-		if (pad_state == 1) {
+   		if (pad_state == 1) {
 			return true;
 		}
 	}

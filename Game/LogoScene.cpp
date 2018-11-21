@@ -1,5 +1,7 @@
 #include "LogoScene.h"
 #include "Pad.h"
+#include "ResourceManager.h"
+#include "GameMain.h"
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -21,14 +23,32 @@ LogoScene::~LogoScene() {
 /// シーンの初期化
 /// </summary>
 void LogoScene::initialize() {
-
+	ResourceManager::getIns()->load(SCENE_LOGO);
+	state = 0;
+	count = 0;
 }
 
 /// <summary>
 /// シーンの更新
 /// </summary>
 void LogoScene::update() {
+	//Zキーでスキップ
 	if (Pad::getIns()->isDown(PadCode::Z)) {
+		count = 180;
+		state = 2;
+	}
+
+	//ロゴ表示時間内ならカウンタを増やす
+	if (count < 180) {
+		count++;
+	}
+	//1つ目のロゴが表示し終わったら2つ目を表示する
+	else if (state == 0) {
+		count = 0;
+		state = 1;
+	}
+	//タイトルシーンに遷移する
+	else {
 		implRequestScene->requestScene(SCENE_TITLE);
 	}
 }
@@ -38,14 +58,21 @@ void LogoScene::update() {
 /// シーンの描画
 /// </summary>
 void LogoScene::render() {
-	DrawFormatString(10, 10, COLOR_WHITE, "LOGO press Z");
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)(255 * (count / 90.0f)));
+	if (state == 0) {
+		DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 1.0f, 0.0f, ResourceManager::getIns()->getGraphic(GRAPHIC_LOGO), true);
+	}
+	else if (state == 1) {
+		DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.5f, 0.0f, ResourceManager::getIns()->getGraphic(GRAPHIC_LOGO2), true);
+	}
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 /// <summary>
 /// シーンの終了処理
 /// </summary>
 void LogoScene::finalize() {
-	
+	ResourceManager::getIns()->release();
 }
 
 /// <summary>

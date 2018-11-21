@@ -60,6 +60,9 @@
     <Filter Include="ゲーム\ユーティリティ\色関係">
       <UniqueIdentifier>{c6a44d45-5472-43e3-bd66-9e13368ef081}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲーム\リソース">
+      <UniqueIdentifier>{ed3a2be9-70b4-45e2-8a34-ab20bdd8c961}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <!-- ソースファイル -->
   <ItemGroup>
@@ -145,9 +148,6 @@
     <ClCompile Include="Game\LogoScene.cpp">
       <Filter>ゲーム\シーン</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ShareDataManager.cpp">
-      <Filter>ゲーム\シーン</Filter>
-    </ClCompile>
     <ClCompile Include="Game\TitleScene.cpp">
       <Filter>ゲーム\シーン</Filter>
     </ClCompile>
@@ -159,6 +159,12 @@
     </ClCompile>
     <ClCompile Include="Game\MoveBlock.cpp">
       <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ShareDataManager.cpp">
+      <Filter>ゲーム\ユーティリティ</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResourceManager.cpp">
+      <Filter>ゲーム\リソース</Filter>
     </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
@@ -265,9 +271,6 @@
     <ClInclude Include="Game\LogoScene.h">
       <Filter>ゲーム\シーン</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ShareDataManager.h">
-      <Filter>ゲーム\シーン</Filter>
-    </ClInclude>
     <ClInclude Include="Game\TitleScene.h">
       <Filter>ゲーム\シーン</Filter>
     </ClInclude>
@@ -279,6 +282,12 @@
     </ClInclude>
     <ClInclude Include="Game\MoveBlock.h">
       <Filter>ゲーム\オブジェクト\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ShareDataManager.h">
+      <Filter>ゲーム\ユーティリティ</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager.h">
+      <Filter>ゲーム\リソース</Filter>
     </ClInclude>
   </ItemGroup>
   <!-- リソースファイル -->

@@ -1,5 +1,7 @@
 #include "TitleScene.h"
 #include "Pad.h"
+#include "ResourceManager.h"
+#include "GameMain.h"
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -21,7 +23,8 @@ TitleScene::~TitleScene() {
 /// シーンの初期化
 /// </summary>
 void TitleScene::initialize() {
-
+	ResourceManager::getIns()->load(SCENE_TITLE);
+	SetFontSize(30);
 }
 
 /// <summary>
@@ -38,14 +41,15 @@ void TitleScene::update() {
 /// シーンの描画
 /// </summary>
 void TitleScene::render() {
-	DrawFormatString(10, 10, COLOR_WHITE, "TITLE press Z");
+	DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.5f, 0.0f, ResourceManager::getIns()->getGraphic(GRAPHIC_TITLE), true);
+	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("press Z key") / 2.f, SCREEN_CENTER_Y + 100, COLOR_WHITE, "press Z key");
 }
 
 /// <summary>
 /// シーンの終了処理
 /// </summary>
 void TitleScene::finalize() {
-	
+	ResourceManager::getIns()->release();
 }
 
 /// <summary>

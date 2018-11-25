@@ -1,8 +1,7 @@
 #include "ResourceManager.h"
 
 ResourceManager::ResourceManager() {
-	images.clear();
-	imagesIndex.fill(-1);
+	release();
 }
 
 void ResourceManager::load(const SceneID _id) {
@@ -23,6 +22,10 @@ void ResourceManager::load(const SceneID _id) {
 void ResourceManager::release() {
 	images.clear();
 	imagesIndex.fill(-1);
+	sounds.clear();
+	soundsIndex.fill(-1);
+	musics.clear();
+	musicsIndex.fill(-1);
 }
 
 HGRP ResourceManager::getGraphic(const GraphicID _id, const int _index) {
@@ -32,6 +35,24 @@ HGRP ResourceManager::getGraphic(const GraphicID _id, const int _index) {
 		return -1;
 	}
 	return *images[index].get()[_index];
+}
+
+HSND ResourceManager::getSound(const SoundID _id) {
+	int index = soundsIndex[_id];
+	if (index == -1) {
+		MessageBox(NULL, "Œø‰Ê‰¹‚Ìæ“¾‚Å•s³‚È’l‚ª“n‚³‚ê‚Ü‚µ‚½", "", MB_OK);
+		return -1;
+	}
+	return *sounds[index].get();
+}
+
+HSND ResourceManager::getMusic(const MusicID _id) {
+	int index = musicsIndex[_id];
+	if (index == -1) {
+		MessageBox(NULL, "BGM‚Ìæ“¾‚Å•s³‚È’l‚ª“n‚³‚ê‚Ü‚µ‚½", "", MB_OK);
+		return -1;
+	}
+	return *musics[index].get();
 }
 
 bool ResourceManager::myLoadGraph(const GraphicID _id, const char *_filename) {
@@ -52,8 +73,30 @@ bool ResourceManager::myLoadDivGraph(const GraphicID _id, const char *_filename,
 		MessageBox(NULL, "‰æ‘œ‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
 		return false;
 	}
-	imagesIndex[images.size()] = _id;
+	imagesIndex[_id] = images.size();
 	images.push_back(std::move(image));
+	return true;
+}
+
+bool ResourceManager::myLoadSoundMem(const SoundID _id, const char *_filename) {
+	auto sound = std::make_unique<HSND>(LoadSoundMem(_filename));
+	if (*sound.get() == -1) {
+		MessageBox(NULL, "Œø‰Ê‰¹‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		return false;
+	}
+	soundsIndex[_id] = sounds.size();
+	sounds.push_back(std::move(sound));
+	return true;
+}
+
+bool ResourceManager::myLoadSoundMem(const MusicID _id, const char *_filename) {
+	auto music = std::make_unique<HSND>(LoadSoundMem(_filename));
+	if (*music.get() == -1) {
+		MessageBox(NULL, "BGM‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		return false;
+	}
+	musicsIndex[_id] = musics.size();
+	musics.push_back(std::move(music));
 	return true;
 }
 

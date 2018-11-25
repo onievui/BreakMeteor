@@ -166,6 +166,9 @@
     <ClCompile Include="Game\ResourceManager.cpp">
       <Filter>ゲーム\リソース</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Sound.cpp">
+      <Filter>ゲーム\リソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <!-- ヘッダファイル -->
   <ItemGroup>
@@ -289,6 +292,9 @@
     <ClInclude Include="Game\ResourceManager.h">
       <Filter>ゲーム\リソース</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Sound.h">
+      <Filter>ゲーム\リソース</Filter>
+    </ClInclude>
   </ItemGroup>
   <!-- リソースファイル -->
   <ItemGroup>
@@ -310,5 +316,6 @@
     <Image Include="Resources\Textures\TridentLogo.png">
       <Filter>リソース\テクスチャ</Filter>
     </Image>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

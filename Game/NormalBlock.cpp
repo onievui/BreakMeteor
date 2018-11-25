@@ -30,6 +30,8 @@ void NormalBlock::update() {
 	pos += vel;
 	vel = { 0,0 };
 	vel.y += 0.5f;
+
+	return;
 }
 
 /// <summary>

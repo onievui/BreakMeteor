@@ -30,5 +30,6 @@ public:
 	virtual void onHitBall(float _time) = 0;	//ボールとの衝突処理
 	RectRotateCollider* getCollider() const;	//当たり判定の取得
 	virtual int getScore() const = 0;			//スコアの取得
-	bool isDestroyed() const;			        //存在するかどうか
+	bool isDestroyed() ;						//存在するかどうか
+
 };

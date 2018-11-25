@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Collision" Collapsed="true">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAICAAAAAAAAEAAQAAAAAAAAAQAAAAgAEBAA=</HashCode>
+      <FileName>Game\Collision.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Paddle" Collapsed="true">
+    <Position X="12.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIABAASCQDMYAIAQEoEIAQCCAAAIEAFEAAA=</HashCode>
+      <FileName>Game\Paddle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractBlock" Collapsed="true">
+    <Position X="16.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABBAGAQAQDIIAIAAAIAAAACAAABAEABEAAA=</HashCode>
+      <FileName>Game\AbstractBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlockFactroy" Collapsed="true">
+    <Position X="17.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAQACAAAAAAAAAA=</HashCode>
+      <FileName>Game\BlockFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlockManager">
+    <Position X="9" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAgAAABACAAAAAAAEAAAAAAAAAAAgUBAA=</HashCode>
+      <FileName>Game\BlockManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NormalBlock" Collapsed="true">
+    <Position X="15" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAIAAAAAAKAAAACAAAAAAAAEAAA=</HashCode>
+      <FileName>Game\NormalBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RotateBlock" Collapsed="true">
+    <Position X="17.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAABAAAAAAAAAAAIAAAAAAIAAAACBAAAAAAAEAAA=</HashCode>
+      <FileName>Game\RotateBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveBlock" Collapsed="true">
+    <Position X="12.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAIAEAAAAAIAAgAAAIAAAACAAAAQAAAEAAA=</HashCode>
+      <FileName>Game\MoveBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractBall">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAACAAAAADMAAIAAAAAAAQCAAAAAEABkAAA=</HashCode>
+      <FileName>Game\AbstractBall.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BallManager">
+    <Position X="11.75" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="balls" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAQAAAAAgAAAAAAAAAAUAAA=</HashCode>
+      <FileName>Game\BallManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NormalBall">
+    <Position X="16.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiAAAAAEAAMAAgAAAAAAAAAQAAAAAAAEAAA=</HashCode>
+      <FileName>Game\NormalBall.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Singleton&lt;T&gt;" Collapsed="true">
+    <Position X="20" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAACAAAAAAAAAAAEAAAAgAAAAAAA=</HashCode>
+      <FileName>Game\Singleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShareDataManager" Collapsed="true">
+    <Position X="21.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAIAAAAAAAAAEIAAIAAAAACACAIAAAAAAAIAA=</HashCode>
+      <FileName>Game\ShareDataManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Keyboard" Collapsed="true">
+    <Position X="23.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAAAAAFAAAIBAAAAgACAgAAAFAAAAAAAFAAA=</HashCode>
+      <FileName>Game\Keyboard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pad" Collapsed="true">
+    <Position X="16.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAEAAAAAkAgAIAAAgAgACAgAgQFAAAAEAAFAAA=</HashCode>
+      <FileName>Game\Pad.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collider" Collapsed="true">
+    <Position X="5.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAIAAAAAQAAAAAAAAAQCAAAAAAABAAAQAEAAAAQAAAI=</HashCode>
+      <FileName>Game\Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RectCollider" Collapsed="true">
+    <Position X="4.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAAAAAIAAQAQCAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RectRotateCollider" Collapsed="true">
+    <Position X="4.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAAAA=</HashCode>
+      <FileName>Game\Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircleCollider" Collapsed="true">
+    <Position X="6.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAACAAAAAAAACACAIAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector2" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAARAQgQAMAYAQAAAEAAAIAAAABgAAAAAAA=</HashCode>
+      <FileName>Game\Vector2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Color" Collapsed="true">
+    <Position X="21" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAACAAAAEAABJAAGQEAAAAQAAAABAAAgACYQQg=</HashCode>
+      <FileName>Game\Color.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RGBColor" Collapsed="true">
+    <Position X="19.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAACAAAAEAABJAAGREAAAAAAAAIBQQBgACYQQg=</HashCode>
+      <FileName>Game\Color.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HSVColor" Collapsed="true">
+    <Position X="22" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAACAAAAEAABJAAGQEAAAAAAAABRJAAhACYQQg=</HashCode>
+      <FileName>Game\Color.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractScene">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAQAAgAAAIAAAAAUAAA=</HashCode>
+      <FileName>Game\AbstractScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayScene">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAAAAAAAAABIEAAAAACAAAAAAAAIBAAgAUAAA=</HashCode>
+      <FileName>Game\PlayScene.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="collision" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RequestSceneListener">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAJAAA=</HashCode>
+      <FileName>Game\RequestSceneListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAABAAAAiAASAAAMACAAAcAAA=</HashCode>
+      <FileName>Game\GameMain.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="nowScene" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LogoScene">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAABAMAAAAAAAAAAAAEAIBAAAAUAAA=</HashCode>
+      <FileName>Game\LogoScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TitleScene">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAIAAAAAAAIAAAIBAAAAUAAA=</HashCode>
+      <FileName>Game\TitleScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResultScene">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAEAAAAAAAAAAAAAAIBAAAAUAgA=</HashCode>
+      <FileName>Game\ResultScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager" Collapsed="true">
+    <Position X="19" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAIAAAAAAAAAAEAAAFAAAAAAAAAAIAAAJAAQ=</HashCode>
+      <FileName>Game\ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Screen" Collapsed="true">
+    <Position X="18.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIBCAGAAAAHAAQAEAgAAAIAAAECACAAAIAAAg=</HashCode>
+      <FileName>Libraries\GameLibrary\GameLibScreen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::unique_ptr&lt;_Ty, _Dx&gt;" Collapsed="true">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAEAAAAAAAEAEAAQgAAAAAAAAAAAQAgAAAAAIA=</HashCode>
+      <FileName>c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::_Unique_ptr_base&lt;_Ty, _Dx&gt;" Collapsed="true">
+    <Position X="9.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

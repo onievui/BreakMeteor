@@ -31,7 +31,7 @@ void ResultScene::initialize() {
 /// シーンの更新
 /// </summary>
 void ResultScene::update() {
-	if (Pad::getIns()->isDown(PadCode::SPACE)) {
+	if (Pad::getIns()->isDown(PadCode::Z)) {
 		implRequestScene->requestScene(SCENE_TITLE);
 	}
 	
@@ -44,7 +44,7 @@ void ResultScene::update() {
 void ResultScene::render() {
 	SetFontSize(30);
 	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("SCORE : %d", ShareDataManager::getIns()->getScore()) / 2.f, 
-		SCREEN_CENTER_Y - 100.f, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
+		SCREEN_CENTER_Y, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
 	SetFontSize(20);
 	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("press Z key") / 2.f, SCREEN_CENTER_Y + 100.0f, COLOR_WHITE, "press Z key");
 }

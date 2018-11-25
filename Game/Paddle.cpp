@@ -19,7 +19,7 @@ Paddle::Paddle() {
 /// èâä˙âª
 /// </summary>
 void Paddle::initialize() {
-	pos    = { (int)DEFAULT_POS_X,(int)DEFAULT_POS_Y };
+	pos    = { (float)DEFAULT_POS_X,(float)DEFAULT_POS_Y };
 	vel    = { 0,0 };
 	angle  = 0;
 	rotateVel = 0;

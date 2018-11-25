@@ -50,14 +50,17 @@ HSVColor RGBColor::getHSVColor() const {
 	}
 
 	//色相の計算
-	if (max == r) {
-		h = 60 * ((g - b) / (max - min));
+	if (max == min) {
+		h = 0;
+	}
+	else if (max == r) {
+		h = 60 * ((g - b) / (float)(max - min));
 	}
 	else if (max == g) {
-		h = 60 * ((b - r) / (max - min)) + 120;
+		h = 60 * ((b - r) / (float)(max - min)) + 120;
 	}
 	else {
-		h = 60 * ((r - g) / (max - min)) + 240;
+		h = 60 * ((r - g) / (float)(max - min)) + 240;
 	}
 
 	if (h < 0) {
@@ -65,7 +68,7 @@ HSVColor RGBColor::getHSVColor() const {
 	}
 
 	//彩度の計算
-	s = (max - min) / max;
+	s = (max - min) / max * 255;
 
 	//明度の計算
 	v = max;
@@ -199,38 +202,38 @@ RGBColor HSVColor::getRGBColor() const {
 
 	//最大値・最小値の計算
 	max = v;
-	min = max - ((s / 255) * max);
+	min = max - ((s / 255.f) * max);
 
 	//RGBカラーの計算
 	if (h <= 60) {
 		r = max;
-		g = (h / 60) * (max - min) + min;
+		g = (h / 60.f) * (max - min) + min;
 		b = min;
 	}
 	else if (h <= 120) {
-		r = ((120 - h) / 60) * (max - min) + min;
+		r = ((120 - h) / 60.f) * (max - min) + min;
 		g = max;
 		b = min;
 	}
 	else if (h <= 180) {
 		r = min;
 		g = max;
-		b = ((h - 120) / 60) * (max - min) + min;
+		b = ((h - 120) / 60.f) * (max - min) + min;
 	}
 	else if (h <= 240) {
 		r = min;
-		g = ((240 - h) / 60) * (max - min) + min;
+		g = ((240 - h) / 60.f) * (max - min) + min;
 		b = max;
 	}
 	else if (h <= 300) {
-		r = ((h - 240) / 60) * (max - min) + min;
+		r = ((h - 240) / 60.f) * (max - min) + min;
 		g = min;
 		b = max;
 	}
 	else {
 		r = max;
 		g = min;
-		b = ((360 - h) / 60) * (max - min) + min;
+		b = ((360 - h) / 60.f) * (max - min) + min;
 	}
 
 	return RGBColor(r, g, b);

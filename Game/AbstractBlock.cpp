@@ -1,5 +1,5 @@
 #include "AbstractBlock.h"
-
+#include "Field.h"
 
 /// <summary>
 /// コンストラクタ
@@ -37,6 +37,9 @@ RectRotateCollider* AbstractBlock::getCollider() const {
 /// true:存在する
 /// false:存在しない
 /// </returns>
-bool AbstractBlock::isDestroyed() const {
+bool AbstractBlock::isDestroyed() {
+	if (pos.y > (float)FIELD::BOTTOM + 100.f) {
+		isValid = false;
+	}
 	return !isValid;
 }

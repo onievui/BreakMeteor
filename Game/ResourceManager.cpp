@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "Resource.h"
 
 ResourceManager::ResourceManager() {
 	release();
@@ -7,96 +8,136 @@ ResourceManager::ResourceManager() {
 void ResourceManager::load(const SceneID _id) {
 	switch (_id) {
 	case SCENE_LOGO:
-		myLoadGraph(GRAPHIC_LOGO, "Resources/Textures/Protected/Logo.png");
-		myLoadGraph(GRAPHIC_LOGO2, "Resources/Textures/Protected/Logo2.png");
+		addTexture(TEXTURE_LOGO, std::make_shared<TextureResource>("Protected/Logo.png"));
+		addTexture(TEXTURE_LOGO2, std::make_shared<TextureResource>("Protected/Logo2.png"));
 		break;
 	case SCENE_TITLE:
-		myLoadGraph(GRAPHIC_TITLE, "Resources/Textures/Protected/Title.png");
+		addTexture(TEXTURE_TITLE, std::make_shared<TextureResource>("Protected/Title.png"));
+		addMusic(MUSIC_BGM, std::make_shared<AudioResource>("Protected/Fight_in_the_outer_space.mp3"));
+		break;
+	case SCENE_PLAY:
+		addSound(SOUND_REFLECT, std::make_shared<AudioResource>("Protected/reflect.ogg"));
+		addSound(SOUND_DESTROY, std::make_shared<AudioResource>("Protected/explosion.mp3"));
+		addMusic(MUSIC_BGM, std::make_shared<AudioResource>("Protected/Fight_in_the_outer_space.mp3"));
+		break;
+	case SCENE_RESULT:
 		break;
 	default:
-		MessageBox(NULL, "読み込み画像の選択で不正な値が渡されました", "", MB_OK);
+		MessageBox(NULL, "読み込みデータの選択で不正な値が渡されました", "", MB_OK);
 		break;
 	}
 }
 
 void ResourceManager::release() {
-	images.clear();
-	imagesIndex.fill(-1);
+	textures.clear();
+	textures.shrink_to_fit();
+	texturesIndex.fill(-1);
 	sounds.clear();
+	sounds.shrink_to_fit();
 	soundsIndex.fill(-1);
 	musics.clear();
+	musics.shrink_to_fit();
 	musicsIndex.fill(-1);
+	movies.clear();
+	movies.shrink_to_fit();
+	moviesIndex.fill(-1);
+	fonts.clear();
+	fonts.shrink_to_fit();
+	fontsIndex.fill(-1);
 }
 
-HGRP ResourceManager::getGraphic(const GraphicID _id, const int _index) {
-	int index = imagesIndex[_id];
+std::shared_ptr<TextureResource> ResourceManager::getTexture(const TextureID _id, const int _index) {
+	int index = texturesIndex[_id];
 	if (index == -1) {
 		MessageBox(NULL, "画像の取得で不正な値が渡されました", "", MB_OK);
-		return -1;
+		return nullptr;
 	}
-	return *images[index].get()[_index];
+	return textures[index];
 }
 
-HSND ResourceManager::getSound(const SoundID _id) {
+std::shared_ptr<AudioResource> ResourceManager::getSound(const SoundID _id) {
 	int index = soundsIndex[_id];
 	if (index == -1) {
 		MessageBox(NULL, "効果音の取得で不正な値が渡されました", "", MB_OK);
-		return -1;
+		return nullptr;
 	}
-	return *sounds[index].get();
+	return sounds[index];
 }
 
-HSND ResourceManager::getMusic(const MusicID _id) {
+std::shared_ptr<AudioResource> ResourceManager::getMusic(const MusicID _id) {
 	int index = musicsIndex[_id];
 	if (index == -1) {
 		MessageBox(NULL, "BGMの取得で不正な値が渡されました", "", MB_OK);
-		return -1;
+		return nullptr;
 	}
-	return *musics[index].get();
+	return musics[index];
 }
 
-bool ResourceManager::myLoadGraph(const GraphicID _id, const char *_filename) {
-	HGRP *image = new HGRP(LoadGraph(_filename));
-	if (*image == -1) {
+std::shared_ptr<MovieResource> ResourceManager::getMovie(const MovieID _id) {
+	int index = moviesIndex[_id];
+	if (index == -1) {
+		MessageBox(NULL, "動画の取得で不正な値が渡されました", "", MB_OK);
+		return nullptr;
+	}
+	return movies[index];
+}
+
+std::shared_ptr<FontResource> ResourceManager::getFontHandle(const FontID _id) {
+	int index = fontsIndex[_id];
+	if (index == -1) {
+		MessageBox(NULL, "フォントハンドルの取得で不正な値が渡されました", "", MB_OK);
+		return nullptr;
+	}
+	return fonts[index];
+}
+
+bool ResourceManager::addTexture(const TextureID _id, const std::shared_ptr<TextureResource> _texture) {
+	if (!_texture->isValid()) {
 		MessageBox(NULL, "画像の読み込みに失敗しました", "", MB_OK);
 		return false;
 	}
-	imagesIndex[_id] = images.size();
-	images.push_back(std::make_unique<HGRP*>(image));
+	texturesIndex[_id] = textures.size();
+	textures.emplace_back(_texture);
 	return true;
 }
 
-bool ResourceManager::myLoadDivGraph(const GraphicID _id, const char *_filename, const int _num, const int _xnum, const int _ynum, const int _width, const int _height) {
-	std::unique_ptr<HGRP*> image;
-	int success = LoadDivGraph(_filename, _num, _xnum, _ynum, _width, _height, *image.get());
-	if (success == -1) {
-		MessageBox(NULL, "画像の読み込みに失敗しました", "", MB_OK);
-		return false;
-	}
-	imagesIndex[_id] = images.size();
-	images.push_back(std::move(image));
-	return true;
-}
-
-bool ResourceManager::myLoadSoundMem(const SoundID _id, const char *_filename) {
-	auto sound = std::make_unique<HSND>(LoadSoundMem(_filename));
-	if (*sound.get() == -1) {
+bool ResourceManager::addSound(const SoundID _id, const std::shared_ptr<AudioResource>& _sound) {
+	if (!_sound->isValid()) {
 		MessageBox(NULL, "効果音の読み込みに失敗しました", "", MB_OK);
 		return false;
 	}
 	soundsIndex[_id] = sounds.size();
-	sounds.push_back(std::move(sound));
+	sounds.emplace_back(_sound);
 	return true;
 }
 
-bool ResourceManager::myLoadSoundMem(const MusicID _id, const char *_filename) {
-	auto music = std::make_unique<HSND>(LoadSoundMem(_filename));
-	if (*music.get() == -1) {
+bool ResourceManager::addMusic(const MusicID _id, const std::shared_ptr<AudioResource>& _music) {
+	if (!_music->isValid()) {
 		MessageBox(NULL, "BGMの読み込みに失敗しました", "", MB_OK);
 		return false;
 	}
 	musicsIndex[_id] = musics.size();
-	musics.push_back(std::move(music));
+	musics.emplace_back(_music);
+	return true;
+}
+
+bool ResourceManager::addMovie(const MovieID _id, const std::shared_ptr<MovieResource>& _movie) {
+	if (!_movie->isValid()) {
+		MessageBox(NULL, "BGMの読み込みに失敗しました", "", MB_OK);
+		return false;
+	}
+	moviesIndex[_id] = movies.size();
+	movies.emplace_back(_movie);
+	return true;
+}
+
+bool ResourceManager::addFont(const FontID _id, const std::shared_ptr<FontResource>& _font) {
+	if (!_font->isValid()) {
+		MessageBox(NULL, "BGMの読み込みに失敗しました", "", MB_OK);
+		return false;
+	}
+	fontsIndex[_id] = fonts.size();
+	fonts.emplace_back(_font);
 	return true;
 }
 

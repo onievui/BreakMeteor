@@ -1,5 +1,7 @@
 #include "NormalBlock.h"
 #include "MyMath.h"
+#include "Sound.h"
+
 
 /// <summary>
 /// コンストラクタ
@@ -58,6 +60,7 @@ void NormalBlock::onHitBall(float _time) {
 	hp -= 1;
 	if (hp <= 0) {
 		isValid = false;
+		SoundPlayer::getIns()->setSound(SOUND_DESTROY);
 	}
 }
 

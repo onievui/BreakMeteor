@@ -16,6 +16,7 @@
 #include "ResultScene.h"
 #include "Pad.h"
 #include "ShareDataManager.h"
+#include "Sound.h"
 
 
 
@@ -70,6 +71,8 @@ void Game::initialize(void) {
 //----------------------------------------------------------------------
 void Game::update(void) {
 	Pad::getIns()->update();
+	SoundPlayer::getIns()->playSound();
+	SoundPlayer::getIns()->playMusic();
 	if (nextScene != SCENE_NONE) {
 		changeScene();
 	}

@@ -106,6 +106,7 @@
     <ClCompile Include="Game\Paddle.cpp" />
     <ClCompile Include="Game\Pad.cpp" />
     <ClCompile Include="Game\PlayScene.cpp" />
+    <ClCompile Include="Game\Resource.cpp" />
     <ClCompile Include="Game\ResourceManager.cpp" />
     <ClCompile Include="Game\ResultScene.cpp" />
     <ClCompile Include="Game\RotateBlock.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Game\BlockFactory.h" />
     <ClInclude Include="Game\BlockManager.h" />
     <ClInclude Include="Game\Collision.h" />
+    <ClInclude Include="Game\Resource.h" />
     <ClInclude Include="Game\ResourceManager.h" />
     <ClInclude Include="Game\LogoScene.h" />
     <ClInclude Include="Game\MoveBlock.h" />

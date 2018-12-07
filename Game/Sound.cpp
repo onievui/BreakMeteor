@@ -31,8 +31,11 @@ void SoundPlayer::setMusic(const MusicID _id) {
 void SoundPlayer::playSound() {
 	for (int i = 0; i < SoundID::SOUND_NUM; ++i) {
 		if (readySounds[i] > 0) {
-			PlaySoundMem(ResourceManager::getIns()->getSound((SoundID)i), DX_PLAYTYPE_BACK);
-			readySounds[i] = 0;
+			std::shared_ptr<AudioResource> sound = ResourceManager::getIns()->getSound((SoundID)i);
+			if (sound->isValid()) {
+				PlaySoundMem(sound->getResource(), DX_PLAYTYPE_BACK);
+				readySounds[i] = 0;
+			}
 		}
 	}
 }
@@ -40,9 +43,12 @@ void SoundPlayer::playSound() {
 void SoundPlayer::playMusic() {
 	for (int i = 0; i < MusicID::MUSIC_NUM; ++i) {
 		if (readyMusics[i] > 0) {
-			PlaySoundMem(ResourceManager::getIns()->getMusic((MusicID)i), DX_PLAYTYPE_LOOP, !continueMusics[i]);
-			readyMusics[i] = 0;
-			continueMusics[i] = false;
+			std::shared_ptr<AudioResource> music = ResourceManager::getIns()->getMusic((MusicID)i);
+			if (music->isValid()) {
+				PlaySoundMem(music->getResource(), DX_PLAYTYPE_LOOP, !continueMusics[i]);
+				readyMusics[i] = 0;
+				continueMusics[i] = false;
+			}
 		}
 	}
 }
@@ -52,7 +58,10 @@ void SoundPlayer::stopSound(const SoundID _id) {
 		MessageBox(NULL, "Œø‰Ê‰¹‚Ì’âŽ~‚Å•s³‚È’l‚ª“n‚³‚ê‚Ü‚µ‚½", "", MB_OK);
 		return;
 	}
-	StopSoundMem(ResourceManager::getIns()->getSound(_id));
+	std::shared_ptr<AudioResource> sound = ResourceManager::getIns()->getSound(_id);
+	if (sound->isValid()) {
+		StopSoundMem(sound->getResource());
+	}
 }
 
 void SoundPlayer::stopMusic(const MusicID _id) {
@@ -60,7 +69,10 @@ void SoundPlayer::stopMusic(const MusicID _id) {
 		MessageBox(NULL, "BGM‚Ì’âŽ~‚Å•s³‚È’l‚ª“n‚³‚ê‚Ü‚µ‚½", "", MB_OK);
 		return;
 	}
-	StopSoundMem(ResourceManager::getIns()->getMusic(_id));
+	std::shared_ptr<AudioResource> music = ResourceManager::getIns()->getMusic(_id);
+	if (music->isValid()) {
+		StopSoundMem(music->getResource());
+	}
 }
 
 void SoundPlayer::continueMusic(const MusicID _id) {
@@ -73,14 +85,21 @@ void SoundPlayer::continueMusic(const MusicID _id) {
 }
 
 void SoundPlayer::stopAll() {
+	ResourceManager *resource_manager = ResourceManager::getIns();
 	for (int i = 0; i < SoundID::SOUND_NUM; ++i) {
 		if (readySounds[i] != -1) {
-			StopSoundMem(ResourceManager::getIns()->getSound((SoundID)i));
+			std::shared_ptr<AudioResource> sound = ResourceManager::getIns()->getSound((SoundID)i);
+			if (sound->isValid()) {
+				StopSoundMem(sound->getResource());
+			}
 		}
 	}
 	for (int i = 0; i < MusicID::MUSIC_NUM; ++i) {
 		if (readyMusics[i] != -1) {
-			StopMusicMem(ResourceManager::getIns()->getMusic((MusicID)i));
+			std::shared_ptr<AudioResource> music = ResourceManager::getIns()->getMusic((MusicID)i);
+			if (music->isValid()) {
+				StopSoundMem(music->getResource());
+			}
 		}
 	}
 }

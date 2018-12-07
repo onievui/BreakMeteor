@@ -2,26 +2,44 @@
 
 #include "Singleton.h"
 #include "SceneID.h"
+#include "Resource.h"
 #include <vector>
 #include <array>
 
 
+typedef int HGRP;    //グラフィックハンドル     
+typedef int HSND;    //サウンドハンドル
+typedef int HMOV;    //ムービーグラフィックハンドル    
+typedef int HFNT;    //フォントハンドル
 
-enum GraphicID {
-	GRAPHIC_LOGO,
-	GRAPHIC_LOGO2,
-	GRAPHIC_TITLE,
-	GRAPHIC_NUM
+
+
+enum TextureID {
+	TEXTURE_LOGO,
+	TEXTURE_LOGO2,
+	TEXTURE_TITLE,
+	TEXTURE_NUM
 };
 
 enum SoundID {
-	SOUND_TEST,
+	SOUND_REFLECT,
+	SOUND_DESTROY,
 	SOUND_NUM
 };
 
 enum MusicID {
-	MUSIC_TEST,
+	MUSIC_BGM,
 	MUSIC_NUM
+};
+
+enum MovieID {
+	MOVIE_NULL,
+	MOVIE_NUM
+};
+
+enum FontID {
+	FONT_NULL,
+	FONT_NUM
 };
 
 
@@ -31,12 +49,16 @@ class ResourceManager final : public Singleton<ResourceManager> {
 	friend Singleton<ResourceManager>;
 
 private:
-	std::vector<std::unique_ptr<HGRP*>> images;
-	std::array<int, GRAPHIC_NUM> imagesIndex;
-	std::vector<std::unique_ptr<HSND>> sounds;
+	std::vector<std::shared_ptr<TextureResource>> textures;
+	std::array<int, TEXTURE_NUM> texturesIndex;
+	std::vector<std::shared_ptr<AudioResource>> sounds;
 	std::array<int, SOUND_NUM> soundsIndex;
-	std::vector<std::unique_ptr<HSND>> musics;
+	std::vector<std::shared_ptr<AudioResource>> musics;
 	std::array<int, MUSIC_NUM> musicsIndex;
+	std::vector<std::shared_ptr<MovieResource>> movies;
+	std::array<int, MOVIE_NUM> moviesIndex;
+	std::vector<std::shared_ptr<FontResource>> fonts;
+	std::array<int, FONT_NUM> fontsIndex;
 
 
 public:
@@ -46,17 +68,18 @@ public:
 public:
 	void load(const SceneID _id);
 	void release();
-	HGRP getGraphic(const GraphicID _id, const int _index = 0);
-	HSND getSound(const SoundID _id);
-	HSND getMusic(const MusicID _id);
+	std::shared_ptr<TextureResource> getTexture(const TextureID _id, const int _index = 0);
+	std::shared_ptr<AudioResource> getSound(const SoundID _id);
+	std::shared_ptr<AudioResource> getMusic(const MusicID _id);
+	std::shared_ptr<MovieResource> getMovie(const MovieID _id);
+	std::shared_ptr<FontResource> getFontHandle(const FontID _id);
 
 private:
-	bool myLoadGraph(const GraphicID _id, const char *_filename);
-	bool myLoadDivGraph(const GraphicID _id, const char *_filename, const int _num, const int _xnum, const int _ynum, const int _width, const int _height);
-
-	bool myLoadSoundMem(const SoundID _id, const char *_filename);
-	bool myLoadSoundMem(const MusicID _id, const char *_filename);
-
+	bool addTexture(const TextureID _id, const std::shared_ptr<TextureResource> _texture);
+	bool addSound(const SoundID _id, const std::shared_ptr<AudioResource>& _sound);
+	bool addMusic(const MusicID _id, const std::shared_ptr<AudioResource>& _music);
+	bool addMovie(const MovieID _id, const std::shared_ptr<MovieResource>& _movie);
+	bool addFont(const FontID _id, const std::shared_ptr<FontResource>& _font);
 };
 
 

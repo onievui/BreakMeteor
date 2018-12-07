@@ -24,7 +24,6 @@ ResultScene::~ResultScene() {
 /// ƒV[ƒ“‚Ì‰Šú‰»
 /// </summary>
 void ResultScene::initialize() {
-	
 }
 
 /// <summary>
@@ -44,7 +43,7 @@ void ResultScene::update() {
 void ResultScene::render() {
 	SetFontSize(30);
 	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("SCORE : %d", ShareDataManager::getIns()->getScore()) / 2.f, 
-		SCREEN_CENTER_Y, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
+		(float)SCREEN_CENTER_Y, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
 	SetFontSize(20);
 	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("press Z key") / 2.f, SCREEN_CENTER_Y + 100.0f, COLOR_WHITE, "press Z key");
 }

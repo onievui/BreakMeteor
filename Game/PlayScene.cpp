@@ -1,5 +1,7 @@
 #include "PlayScene.h"
 #include "ShareDataManager.h"
+#include "ResourceManager.h"
+#include "Sound.h"
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -20,6 +22,8 @@ PlayScene::~PlayScene() {
 /// シーンの初期化
 /// </summary>
 void PlayScene::initialize() {
+	ResourceManager::getIns()->load(SCENE_PLAY);
+	SoundPlayer::getIns()->reset();
 	collision = std::make_unique<Collision>();
 	paddle = std::make_unique<Paddle>();
 	collision->setPaddle(&paddle);
@@ -57,7 +61,9 @@ void PlayScene::render() {
 /// シーンの終了処理
 /// </summary>
 void PlayScene::finalize() {
-	
+	ResourceManager::getIns()->release();
+	SoundPlayer::getIns()->stopAll();
+	SoundPlayer::getIns()->reset();
 }
 
 /// <summary>

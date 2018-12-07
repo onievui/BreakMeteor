@@ -1,5 +1,6 @@
 #include "RotateBlock.h"
 #include "MyMath.h"
+#include "Sound.h"
 
 /// <summary>
 /// コンストラクタ
@@ -58,6 +59,7 @@ void RotateBlock::onHitBall(float _time) {
 	hp -= 1;
 	if (hp <= 0) {
 		isValid = false;
+		SoundPlayer::getIns()->setSound(SOUND_DESTROY);
 	}
 }
 

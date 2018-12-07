@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include "Pad.h"
 #include "ResourceManager.h"
+#include "Sound.h"
 #include "GameMain.h"
 
 /// <summary>
@@ -24,6 +25,8 @@ TitleScene::~TitleScene() {
 /// </summary>
 void TitleScene::initialize() {
 	ResourceManager::getIns()->load(SCENE_TITLE);
+	SoundPlayer::getIns()->reset();
+	SoundPlayer::getIns()->setMusic(MUSIC_BGM);
 	SetFontSize(30);
 }
 
@@ -41,7 +44,7 @@ void TitleScene::update() {
 /// シーンの描画
 /// </summary>
 void TitleScene::render() {
-	DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.5f, 0.0f, ResourceManager::getIns()->getGraphic(GRAPHIC_TITLE), true);
+	DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.5f, 0.0f, ResourceManager::getIns()->getTexture(TEXTURE_TITLE)->getResource(), true);
 	DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("press Z key") / 2.f, SCREEN_CENTER_Y + 100, COLOR_WHITE, "press Z key");
 }
 
@@ -49,7 +52,7 @@ void TitleScene::render() {
 /// シーンの終了処理
 /// </summary>
 void TitleScene::finalize() {
-	ResourceManager::getIns()->release();
+
 }
 
 /// <summary>

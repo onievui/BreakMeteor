@@ -2,6 +2,7 @@
 #include "NormalBall.h"
 #include "Field.h"
 #include "MyMath.h"
+#include "Sound.h"
 
 
 /// <summary>
@@ -51,6 +52,7 @@ void NormalBall::reflect(const float _time, const float _ref_normal) {
 	float rotate_angle = angle + rotate;
 	if (sinf(rotate_angle) < 0) {
 		angle = PI * 2 - rotate_angle - rotate;
+		SoundPlayer::getIns()->setSound(SOUND_REFLECT);
 	}
 	normalizeAngle();
 	vel = Vector2::createWithAngleNorm(angle, speed)*(1.f - _time);

@@ -1,7 +1,7 @@
 #include "MoveBlock.h"
 #include "Field.h"
 #include "MyMath.h"
-
+#include "Sound.h"
 
 
 /// <summary>
@@ -63,6 +63,7 @@ void MoveBlock::onHitBall(float _time) {
 	hp -= 1;
 	if (hp <= 0) {
 		isValid = false;
+		SoundPlayer::getIns()->setSound(SOUND_DESTROY);
 	}
 }
 

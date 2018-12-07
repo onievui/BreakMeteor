@@ -60,10 +60,10 @@ void LogoScene::update() {
 void LogoScene::render() {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)(255 * (count / 90.0f)));
 	if (state == 0) {
-		DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 1.0f, 0.0f, ResourceManager::getIns()->getGraphic(GRAPHIC_LOGO), true);
+		DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 1.0f, 0.0f, ResourceManager::getIns()->getTexture(TEXTURE_LOGO)->getResource(), true);
 	}
 	else if (state == 1) {
-		DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.5f, 0.0f, ResourceManager::getIns()->getGraphic(GRAPHIC_LOGO2), true);
+		DrawRotaGraph(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.5f, 0.0f, ResourceManager::getIns()->getTexture(TEXTURE_LOGO2)->getResource(), true);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

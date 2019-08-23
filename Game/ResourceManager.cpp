@@ -46,7 +46,7 @@ void ResourceManager::release() {
 	fontsIndex.fill(-1);
 }
 
-std::shared_ptr<TextureResource> ResourceManager::getTexture(const TextureID _id, const int _index) {
+std::shared_ptr<TextureResource> ResourceManager::getTexture(const TextureID _id) {
 	int index = texturesIndex[_id];
 	if (index == -1) {
 		MessageBox(NULL, "‰æ‘œ‚Ìæ“¾‚Å•s³‚È’l‚ª“n‚³‚ê‚Ü‚µ‚½", "", MB_OK);

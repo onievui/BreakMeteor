@@ -68,7 +68,7 @@ public:
 public:
 	void load(const SceneID _id);
 	void release();
-	std::shared_ptr<TextureResource> getTexture(const TextureID _id, const int _index = 0);
+	std::shared_ptr<TextureResource> getTexture(const TextureID _id);
 	std::shared_ptr<AudioResource> getSound(const SoundID _id);
 	std::shared_ptr<AudioResource> getMusic(const MusicID _id);
 	std::shared_ptr<MovieResource> getMovie(const MovieID _id);
